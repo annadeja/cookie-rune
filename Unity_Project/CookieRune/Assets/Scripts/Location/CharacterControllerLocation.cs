@@ -34,7 +34,7 @@ public class CharacterControllerLocation : MonoBehaviour
 
         if(mainCam != null)
         {
-            Vector3 camDiff = new Vector3(0, 10, -20);
+            Vector3 camDiff = new Vector3(0, 0, -15);
             mainCam.transform.position = transform.position + camDiff;
         }
     }

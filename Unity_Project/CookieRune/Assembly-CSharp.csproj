@@ -62,6 +62,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\LoadCharacter.cs" />
+    <Compile Include="Assets\SceneChange.cs" />
     <Compile Include="Assets\Scripts\Location\CharacterControllerLocation.cs" />
     <Compile Include="Assets\Scripts\World\MovementPath.cs" />
     <Compile Include="Assets\Scripts\World\PathFollower.cs" />
