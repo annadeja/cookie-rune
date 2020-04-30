@@ -62,12 +62,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\LoadCharacter.cs" />
-    <Compile Include="Assets\SceneChange.cs" />
     <Compile Include="Assets\Scripts\Location\CharacterControllerLocation.cs" />
+    <Compile Include="Assets\Scripts\World\CharacterControllerWorld.cs" />
+    <Compile Include="Assets\Scripts\World\LocationInfo.cs" />
     <Compile Include="Assets\Scripts\World\MovementPath.cs" />
     <Compile Include="Assets\Scripts\World\PathFollower.cs" />
     <Compile Include="Assets\Testing and Debug Assets\CameraTestController.cs" />
+    <Compile Include="Assets\Testing and Debug Assets\LoadCharacter.cs" />
+    <Compile Include="Assets\Testing and Debug Assets\SceneChange.cs" />
     <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
       <HintPath>C:/Users/Artur/Documents/GitHub/cookie-rune/Unity_Project/CookieRune/Library/ScriptAssemblies/Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
     </Reference>

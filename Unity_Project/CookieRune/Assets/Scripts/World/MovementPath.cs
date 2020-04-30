@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class MovementPath : MonoBehaviour
 {
-    public int direction = 1;
+    [SerializeField] private int direction = 1;
     public int curPoint = 0;
     [SerializeField] public Transform[] waypoints;
 
     public void nextWaypoint()
     {
-        if (curPoint >= waypoints.Length - 1 || curPoint <= 0)
+        if (curPoint >= waypoints.Length - 1)
         {
-            direction = -direction;
+            direction = -1;
+        }
+        if (curPoint <= 0)
+        {
+            direction = 1;
         }
         curPoint += direction;
     }
@@ -28,5 +32,27 @@ public class MovementPath : MonoBehaviour
                 Gizmos.DrawLine(waypoints[i].position, waypoints[i + 1].position);
             }
         }
+    }
+
+    public void changeDirection()
+    {
+        direction = -direction;
+    }
+
+    public Transform getEnd()
+    {
+        if (direction == -1) return waypoints[0];
+        return waypoints[waypoints.Length - 1];
+    }
+
+    public void resetPath()
+    {
+        curPoint = 0;
+        direction = 1;
+    }
+    public void resetPathNeg()
+    {
+        curPoint = waypoints.Length - 1;
+        direction = -1;
     }
 }
