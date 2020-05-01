@@ -43,8 +43,8 @@ MonoBehaviour:
     y: 0
     width: 213
     height: 674
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -71,10 +71,10 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 947
-  m_MinSize: {x: 576, y: 471}
+  m_MinSize: {x: 578, y: 492}
   m_MaxSize: {x: 14001, y: 14042}
   vertical: 0
-  controlID: 14
+  controlID: 66
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -216,10 +216,10 @@ MonoBehaviour:
     y: 0
     width: 1557
     height: 947
-  m_MinSize: {x: 301, y: 471}
+  m_MinSize: {x: 303, y: 492}
   m_MaxSize: {x: 10001, y: 14042}
   vertical: 1
-  controlID: 15
+  controlID: 67
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -241,10 +241,10 @@ MonoBehaviour:
     y: 0
     width: 1557
     height: 674
-  m_MinSize: {x: 301, y: 200}
-  m_MaxSize: {x: 8001, y: 4021}
+  m_MinSize: {x: 303, y: 221}
+  m_MaxSize: {x: 8003, y: 4021}
   vertical: 0
-  controlID: 16
+  controlID: 119
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -309,9 +309,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 5.266122, y: 0.5952387, z: -8.9904175}
+    m_Target: {x: 4.1677995, y: 3.4733164, z: -8.85322}
     speed: 2
-    m_Value: {x: 5.266122, y: 0.5952387, z: -8.9904175}
+    m_Value: {x: 4.1677995, y: 3.4733164, z: -8.85322}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -357,13 +357,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.2966097, y: 0.19447435, z: -0.061797656, w: 0.93296844}
+    m_Target: {x: 0.32415217, y: 0.03263454, z: -0.011157624, w: 0.94540256}
     speed: 2
-    m_Value: {x: 0.29425344, y: 0.1876452, z: -0.05900726, w: 0.93526596}
+    m_Value: {x: 0.32414407, y: 0.032633726, z: -0.011157345, w: 0.9453789}
   m_Size:
-    m_Target: 9.427628
+    m_Target: 5.1317773
     speed: 2
-    m_Value: 8.6491995
+    m_Value: 5.1317773
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -453,20 +453,20 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Sprites
+    - Assets/Scenes
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Sprites
+  - Assets/Scenes
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\Artur\Documents\GitHub\cookie-rune\Unity_Project\CookieRune
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 76}
-    m_SelectedIDs: e6540000
-    m_LastClickedID: 21734
-    m_ExpandedIDs: 00000000543a0000a2540000de54000000ca9a3b
+    scrollPos: {x: 0, y: 28}
+    m_SelectedIDs: f83b0000
+    m_LastClickedID: 15352
+    m_ExpandedIDs: 00000000583a0000bc3b000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -494,7 +494,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000543a0000a2540000
+    m_ExpandedIDs: 00000000583a0000bc3b0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -619,7 +619,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 0edbfeff0036ffff8e5cffff9061ffff9ca3ffff70acffff70fbffff
+      m_ExpandedIDs: c8e1ffffb2e2ffff90e4ffff32ecffffc2f2ffffd6f6ffff70fbffff9a400000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -754,7 +754,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 749
+    y: 747
     width: 1556
-    height: 250
+    height: 252
   m_ViewDataDictionary: {fileID: 0}

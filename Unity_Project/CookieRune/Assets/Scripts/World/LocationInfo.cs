@@ -12,6 +12,7 @@ public class LocationInfo : MonoBehaviour
     [SerializeField] bool isStartingEast;
     [SerializeField] bool isStartingSouth;
     [SerializeField] bool isStartingWest;
+    [SerializeField] string locationName;
 
     void Start()
     {
@@ -57,5 +58,11 @@ public class LocationInfo : MonoBehaviour
             else { west.resetPathNeg(); }
         }
         return west;
+    }
+
+    public string getLocation()
+    {
+        if (locationName != null || locationName != "") return locationName;
+        else return null;
     }
 }

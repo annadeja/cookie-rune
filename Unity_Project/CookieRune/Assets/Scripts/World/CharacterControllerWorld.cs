@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CharacterControllerWorld : MonoBehaviour
 {
@@ -41,6 +42,14 @@ public class CharacterControllerWorld : MonoBehaviour
                 moveControl.setPath(inLocation.getSouth());
                 moveControl.startMotion();
                 moveControl.initMovement();
+            }
+            else if (Input.GetButtonDown("Fire2"))
+            {
+                string name = inLocation.getLocation();
+                if (name != null)
+                {
+                    SceneManager.LoadScene(name);
+                }
             }
         }
     }

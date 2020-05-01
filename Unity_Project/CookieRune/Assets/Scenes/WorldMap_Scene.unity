@@ -328,6 +328,7 @@ MonoBehaviour:
   isStartingEast: 0
   isStartingSouth: 0
   isStartingWest: 0
+  locationName: SugarMine_Scene
 --- !u!1 &577298557
 GameObject:
   m_ObjectHideFlags: 0
@@ -783,6 +784,7 @@ MonoBehaviour:
   isStartingEast: 1
   isStartingSouth: 1
   isStartingWest: 1
+  locationName: Town_Scene
 --- !u!1 &1151025100
 GameObject:
   m_ObjectHideFlags: 0
@@ -991,6 +993,7 @@ MonoBehaviour:
   isStartingEast: 0
   isStartingSouth: 0
   isStartingWest: 0
+  locationName: Plains_Scene
 --- !u!1 &1634458753
 GameObject:
   m_ObjectHideFlags: 0
@@ -1057,6 +1060,7 @@ MonoBehaviour:
   isStartingEast: 0
   isStartingSouth: 0
   isStartingWest: 0
+  locationName: Desert_Scene
 --- !u!1 &1938917426
 GameObject:
   m_ObjectHideFlags: 0
