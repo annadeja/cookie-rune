@@ -7,11 +7,12 @@ public class CharacterControllerWorld : MonoBehaviour
 {
     [SerializeField] LocationInfo inLocation = null;
     [SerializeField] PathFollower moveControl;
-
+    private Animator animator;
     // Start is called before the first frame update
     void Start()
     {
-        
+        animator = GetComponent<Animator>();
+        animator.SetBool("movingRight", true);
     }
 
     // Update is called once per frame
@@ -21,24 +22,32 @@ public class CharacterControllerWorld : MonoBehaviour
         {
             if (Input.GetAxis("X") > 0)
             {
+                animator.SetBool("movingLeft", false);
+                animator.SetBool("movingRight", true);
                 moveControl.setPath(inLocation.getEast());
                 moveControl.startMotion();
                 moveControl.initMovement();
             }
             else if (Input.GetAxis("X") < 0)
             {
+                animator.SetBool("movingLeft", true);
+                animator.SetBool("movingRight", false);
                 moveControl.setPath(inLocation.getWest());
                 moveControl.startMotion();
                 moveControl.initMovement();
             }
             else if (Input.GetAxis("Z") > 0)
             {
+                animator.SetBool("movingLeft", false);
+                animator.SetBool("movingRight", true);
                 moveControl.setPath(inLocation.getNorth());
                 moveControl.startMotion();
                 moveControl.initMovement();
             }
             else if (Input.GetAxis("Z") < 0)
             {
+                animator.SetBool("movingLeft", false);
+                animator.SetBool("movingRight", true);
                 moveControl.setPath(inLocation.getSouth());
                 moveControl.startMotion();
                 moveControl.initMovement();

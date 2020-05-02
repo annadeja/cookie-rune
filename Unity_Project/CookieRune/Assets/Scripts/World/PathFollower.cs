@@ -8,7 +8,6 @@ public class PathFollower : MonoBehaviour
     private Transform moveToWaypoint;
     [SerializeField] private bool inMotion = false;
     Vector3 moveToVec;
-
     // Start is called before the first frame update
     void Start()
     {
