@@ -55,6 +55,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Location\ChangeLocation.cs" />
      <Compile Include="Assets\Scripts\Location\CharacterControllerLocation.cs" />
      <Compile Include="Assets\Scripts\World\CharacterControllerWorld.cs" />
      <Compile Include="Assets\Scripts\World\LocationInfo.cs" />
