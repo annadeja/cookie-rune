@@ -12,7 +12,7 @@ public class CharacterControllerWorld : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        animator.SetBool("movingRight", true);
+        if (animator != null) animator.SetBool("movingRight", true);
     }
 
     // Update is called once per frame
@@ -22,32 +22,44 @@ public class CharacterControllerWorld : MonoBehaviour
         {
             if (Input.GetAxis("X") > 0)
             {
-                animator.SetBool("movingLeft", false);
-                animator.SetBool("movingRight", true);
+                if (animator != null)
+                {
+                    animator.SetBool("movingLeft", false);
+                    animator.SetBool("movingRight", true);
+                }
                 moveControl.setPath(inLocation.getEast());
                 moveControl.startMotion();
                 moveControl.initMovement();
             }
             else if (Input.GetAxis("X") < 0)
             {
-                animator.SetBool("movingLeft", true);
-                animator.SetBool("movingRight", false);
+                if (animator != null)
+                {
+                    animator.SetBool("movingLeft", true);
+                    animator.SetBool("movingRight", false);
+                }
                 moveControl.setPath(inLocation.getWest());
                 moveControl.startMotion();
                 moveControl.initMovement();
             }
             else if (Input.GetAxis("Z") > 0)
             {
-                animator.SetBool("movingLeft", false);
-                animator.SetBool("movingRight", true);
+                if (animator != null)
+                {
+                    animator.SetBool("movingLeft", false);
+                    animator.SetBool("movingRight", true);
+                }
                 moveControl.setPath(inLocation.getNorth());
                 moveControl.startMotion();
                 moveControl.initMovement();
             }
             else if (Input.GetAxis("Z") < 0)
             {
-                animator.SetBool("movingLeft", false);
-                animator.SetBool("movingRight", true);
+                if (animator != null)
+                {
+                    animator.SetBool("movingLeft", false);
+                    animator.SetBool("movingRight", true);
+                }
                 moveControl.setPath(inLocation.getSouth());
                 moveControl.startMotion();
                 moveControl.initMovement();
@@ -69,6 +81,11 @@ public class CharacterControllerWorld : MonoBehaviour
         {
             Debug.Log("Now in location: " + other.gameObject.name);
             inLocation = other.gameObject.GetComponent<LocationInfo>();
+            InfoCarrier carrier = GameObject.Find("ObjectCarrier").GetComponent<InfoCarrier>();
+            if (carrier != null)
+            {
+                carrier.setLastLocation(other.gameObject.name);
+            }
         }
     }
 

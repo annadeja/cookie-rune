@@ -21,22 +21,24 @@ public class CharacterControllerLocation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (disp.x > 0)
+        if (animator != null)
         {
-            animator.SetBool("movingRight", true);
-            animator.SetBool("movingLeft", false);
+            if (disp.x > 0)
+            {
+                animator.SetBool("movingRight", true);
+                animator.SetBool("movingLeft", false);
+            }
+            else if (disp.x < 0)
+            {
+                animator.SetBool("movingLeft", true);
+                animator.SetBool("movingRight", false);
+            }
+            else
+            {
+                animator.SetBool("movingLeft", false);
+                animator.SetBool("movingRight", false);
+            }
         }
-        else if (disp.x < 0)
-        {
-            animator.SetBool("movingLeft", true);
-            animator.SetBool("movingRight", false);
-        }
-        else
-        {
-            animator.SetBool("movingLeft", false);
-            animator.SetBool("movingRight", false);
-        }
-
         disp.x = Input.GetAxis("X") * 7;
         disp.y -= 10 * Time.deltaTime;
         if (control.isGrounded)
