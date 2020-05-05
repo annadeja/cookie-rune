@@ -9,12 +9,14 @@ public class CharacterControllerLocation : MonoBehaviour
     CharacterController control;
     [SerializeField] Vector3 disp;
     private Animator animator;
+    private Transform transform;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
         control = GetComponent<CharacterController>();
+        transform = GetComponent<Transform>();
         disp = new Vector3(0, 0, 0);
     }
 
@@ -52,7 +54,7 @@ public class CharacterControllerLocation : MonoBehaviour
 
         control.Move(disp * Time.deltaTime);
 
-        if(mainCam != null)
+        if(mainCam != null && transform.position.x < 35 && transform.position.x > -35)
         {
             Vector3 camDiff = new Vector3(0, 0, -15);
             mainCam.transform.position = transform.position + camDiff;
