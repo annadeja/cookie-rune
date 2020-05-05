@@ -75,7 +75,7 @@ public class BattleController : MonoBehaviour
         if (isDead)
         {
             state = BattleState.WON;
-            EndBattle();
+            StartCoroutine(EndBattle());
         }
         else
         {
@@ -97,8 +97,9 @@ public class BattleController : MonoBehaviour
         if (chance > 50f)
         {
             dialogue.text = "You managed to flee!";
+            yield return new WaitForSeconds(2f);
             state = BattleState.RUN;
-            EndBattle();
+            StartCoroutine(EndBattle());
         }
         else
         {
@@ -144,7 +145,7 @@ public class BattleController : MonoBehaviour
         if (isDead)
         {
             state = BattleState.LOST;
-            EndBattle();
+            StartCoroutine(EndBattle());
         }
         else
         {
@@ -153,7 +154,7 @@ public class BattleController : MonoBehaviour
         }
     }
 
-    void EndBattle()
+    IEnumerator EndBattle()
     {
         if (state == BattleState.WON)
         {
@@ -167,6 +168,7 @@ public class BattleController : MonoBehaviour
         {
             dialogue.text = "You fled...";
         }
+        yield return new WaitForSeconds(2f);
         SceneManager.LoadScene("SugarMine_Scene");
     }
 }
