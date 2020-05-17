@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using InventoryInfo;
 
 public class InfoCarrier : MonoBehaviour
 {
     [SerializeField] string lastLocation;
+    List<InventoryInfo.ItemInfo> inventory;
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +18,11 @@ public class InfoCarrier : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void addToInventory(ItemInfo item)
+    {
+        inventory.Add(item);
     }
 
     public void setLastLocation(string name)

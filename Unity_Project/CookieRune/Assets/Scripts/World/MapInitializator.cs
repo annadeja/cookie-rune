@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MapInitializator : MonoBehaviour
 {
     [SerializeField] GameObject hero;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +20,9 @@ public class MapInitializator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown("escape"))
+        {
+            SceneManager.LoadScene("MainMenu_Scene");
+        }
     }
 }
