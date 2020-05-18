@@ -6,7 +6,7 @@ using UnityEngine;
 public class CharacterControllerLocation : MonoBehaviour
 {
     public Camera mainCam;
-    CharacterController control;
+    private CharacterController control;
     [SerializeField] Vector3 disp;
     private Animator animator;
     private Transform transform;
@@ -43,6 +43,7 @@ public class CharacterControllerLocation : MonoBehaviour
         }
         disp.x = Input.GetAxis("X") * 7;
         disp.y -= 10 * Time.deltaTime;
+        disp.z = 0;
         if (control.isGrounded)
         {
             disp.y = 0;

@@ -24,7 +24,11 @@ namespace InventoryInfo{
 
         public virtual ArrayList getStats()
         {
-            return null;
+            ArrayList stats = new ArrayList();
+            stats.Add(type);
+            stats.Add(description);
+
+            return stats;
         }
     }
 }
