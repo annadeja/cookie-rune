@@ -4,22 +4,18 @@ using UnityEngine;
 
 public class EnemyBehavior : MonoBehaviour
 {
-    private float homeX;
-    private float homeY;
+    [SerializeField] Vector3 home;
     [SerializeField] float maxDisplacement;
-    private Vector3 displacement;
-    private float frameDisplacement;
-    private CharacterController control;
-    private Transform transform;
+    [SerializeField] private Vector3 displacement;
+    [SerializeField] private float frameDisplacement;
+    [SerializeField] private CharacterController control;
 
     // Start is called before the first frame update
     void Start()
     {
         control = GetComponent<CharacterController>();
-        transform = GetComponent<Transform>();
-        homeX = transform.position.x;
-        homeY = transform.position.y;
-        frameDisplacement = maxDisplacement / 3.0f;
+        home = transform.position;
+        frameDisplacement = 1f;
         displacement = new Vector3(0, 0, 0);
     }
 
@@ -29,14 +25,11 @@ public class EnemyBehavior : MonoBehaviour
         displacement.y -= 10 * Time.deltaTime;
         if (control.isGrounded)
             displacement.y = 0;
-        if (transform.position.x < homeX + maxDisplacement) 
+        if ((transform.position.x - home.x > maxDisplacement) || (transform.position.x - home.x <  -maxDisplacement))
         {
-            displacement.x = frameDisplacement;
+            frameDisplacement = -frameDisplacement;
         }
-        else if (transform.position.x > homeX - maxDisplacement)
-        {
-            displacement.x = -frameDisplacement;
-        }
+        displacement.x = frameDisplacement;
         //transform.position += displacement * Time.deltaTime; 
         control.Move(displacement * Time.deltaTime);
     }

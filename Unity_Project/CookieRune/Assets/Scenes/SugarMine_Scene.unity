@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311926, g: 0.38073996, b: 0.35872692, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -160,7 +160,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 55703638}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 1
@@ -2023,12 +2023,12 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1786174378}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 1
-  m_Height: 1
+  m_Radius: 1.7546053
+  m_Height: 3.5092106
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: -0.008173943, y: 0, z: 0}
 --- !u!4 &1786174381
 Transform:
   m_ObjectHideFlags: 0
@@ -2105,7 +2105,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 082720a4c2b20084b9bf224a6003c89b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  home: {x: 0, y: 0, z: 0}
   maxDisplacement: 2
+  displacement: {x: 0, y: 0, z: 0}
+  frameDisplacement: 0
+  control: {fileID: 0}
 --- !u!143 &1786174384
 CharacterController:
   m_ObjectHideFlags: 0
@@ -3569,6 +3573,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Size.y
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2224426051102804582, guid: ed2045373ae0b234796afa78f0837474,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2224426051102804583, guid: ed2045373ae0b234796afa78f0837474,
         type: 3}

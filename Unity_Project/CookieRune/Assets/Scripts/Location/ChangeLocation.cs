@@ -20,6 +20,9 @@ public class ChangeLocation : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        SceneManager.LoadScene(sceneName);
+        if (other.gameObject.tag == "Player")
+        {
+            SceneManager.LoadScene(sceneName);
+        }
     }
 }
