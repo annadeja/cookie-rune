@@ -63,6 +63,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Battle\BattleController.cs" />
+    <Compile Include="Assets\Scripts\Character.cs" />
+    <Compile Include="Assets\Scripts\EnemyEncounter.cs" />
     <Compile Include="Assets\Scripts\Location\ChangeLocation.cs" />
     <Compile Include="Assets\Scripts\Location\CharacterControllerLocation.cs" />
     <Compile Include="Assets\Scripts\Location\EnemyBehavior.cs" />
@@ -72,6 +74,7 @@
     <Compile Include="Assets\Scripts\Player\InfoCarrier.cs" />
     <Compile Include="Assets\Scripts\Player\ItemInfo.cs" />
     <Compile Include="Assets\Scripts\Player\WeaponInfo.cs" />
+    <Compile Include="Assets\Scripts\Skill.cs" />
     <Compile Include="Assets\Scripts\Unit.cs" />
     <Compile Include="Assets\Scripts\World\CharacterControllerWorld.cs" />
     <Compile Include="Assets\Scripts\World\LocationInfo.cs" />

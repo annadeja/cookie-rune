@@ -20,4 +20,5 @@ public class Unit : MonoBehaviour
         if (curHP <= 0) return true;
         return false;
     }
+
 }
