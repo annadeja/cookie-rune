@@ -1991,10 +1991,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1786174381}
   - component: {fileID: 1786174380}
-  - component: {fileID: 1786174379}
   - component: {fileID: 1786174382}
   - component: {fileID: 1786174383}
   - component: {fileID: 1786174384}
+  - component: {fileID: 1786174379}
   m_Layer: 0
   m_Name: Fructozer
   m_TagString: Untagged
@@ -2011,10 +2011,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 1786174378}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fc98340f1056f748b25a4c2b2033ec3, type: 3}
+  m_Script: {fileID: 11500000, guid: 5fb47d9ba8ae94e4b9be45d36e9c00fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: MineFight_Scene
+  battleName: MineFight_Scene
+  enemyName:
+  - Fructozer
+  - Glucozer
+  enemyLvl: 0100000002000000
+  enemyHP: 140000000f000000
+  enemyAtk: 0300000001000000
+  enemyDef: 0200000001000000
+  enemyMag: 0100000004000000
+  enemyMdef: 0100000004000000
+  enemySpd: 0500000001000000
 --- !u!136 &1786174380
 CapsuleCollider:
   m_ObjectHideFlags: 0
