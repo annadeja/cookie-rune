@@ -10,6 +10,7 @@ public class CharacterControllerLocation : MonoBehaviour
     [SerializeField] Vector3 disp;
     private Animator animator;
     private Transform transform;
+    public bool canMove = true;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +24,7 @@ public class CharacterControllerLocation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (animator != null)
+        if (animator != null && canMove)
         {
             if (disp.x > 0)
             {
@@ -41,6 +42,12 @@ public class CharacterControllerLocation : MonoBehaviour
                 animator.SetBool("movingRight", false);
             }
         }
+        else if (animator != null && !canMove)
+        {
+            animator.SetBool("movingLeft", false);
+            animator.SetBool("movingRight", false);
+        }
+
         disp.x = Input.GetAxis("X") * 7;
         disp.y -= 10 * Time.deltaTime;
         disp.z = 0;
@@ -53,12 +60,15 @@ public class CharacterControllerLocation : MonoBehaviour
             }
         }
 
-        control.Move(disp * Time.deltaTime);
-
-        if(mainCam != null && transform.position.x < 35 && transform.position.x > -35)
+        if (canMove)
         {
-            Vector3 camDiff = new Vector3(0, 0, -15);
-            mainCam.transform.position = transform.position + camDiff;
+            control.Move(disp * Time.deltaTime);
+
+            if (mainCam != null && transform.position.x < 35 && transform.position.x > -35)
+            {
+                Vector3 camDiff = new Vector3(0, 0, -15);
+                mainCam.transform.position = transform.position + camDiff;
+            }
         }
     }
 }
