@@ -10,7 +10,7 @@ public class InfoCarrier : MonoBehaviour
     [Header("Party")]
     List<Character> party;
     List<InventoryInfo.ItemInfo> inventory;
-
+    int credits = 0;
     List<Character> enemyParty;
 
     void Start()
@@ -70,6 +70,16 @@ public class InfoCarrier : MonoBehaviour
     public List<Character> getPlayerParty()
     {
         return party;
+    }
+
+    public int getPartyCredits()
+    {
+        return credits;
+    }
+
+    public void setPartyCredits(int credits)
+    {
+        this.credits = credits;
     }
 
     public List<Character> getEnemyParty()
