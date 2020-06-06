@@ -52,6 +52,7 @@ public class BattleController : MonoBehaviour
     public Transform[] eBattleStation;
 
     List<Character> playerParty;
+    List<InventoryInfo.ItemInfo> playerInventory;
     List<Character> enemyParty;
 
     // turn control
@@ -62,6 +63,9 @@ public class BattleController : MonoBehaviour
     List<int> targetList;
     // skill choosing control
     int skillPage = 0;
+
+    InventoryInfo.ItemInfo toUse;
+    bool isItems = false;
 
     // Start is called before the first frame update
     void Start()
@@ -82,6 +86,7 @@ public class BattleController : MonoBehaviour
 
         InfoCarrier carrier = GameObject.Find("ObjectCarrier").GetComponent<InfoCarrier>();
 
+        playerInventory = carrier.getInventory();
         playerParty = carrier.getPlayerParty();
         enemyParty = carrier.getEnemyParty();
         foreach (Character chara in playerParty)
@@ -203,6 +208,33 @@ public class BattleController : MonoBehaviour
         setupTurn();
     }
 
+    IEnumerator playerUseItem()
+    {
+        playerInventory.Remove(toUse);
+        for (int i = 0; i < targetList.Count; i++)
+        {
+            //init phase
+            dialogue.text = "init item: " + toUse.Name;
+            yield return new WaitForSeconds(1f);
+
+            //mid phase
+            dialogue.text = "mid item: " + toUse.Name;
+            yield return new WaitForSeconds(1f);
+
+            //end phase
+            dialogue.text = "end item: " + toUse.Name;
+            updateHP();
+            yield return new WaitForSeconds(1f);
+        }
+
+        dialogue.text = "post: " + toUse.Name;
+        toUse = null;
+        yield return new WaitForSeconds(1f);
+
+        nextChara();
+        setupTurn();
+    }
+
     IEnumerator playerFlee()
     {
         state = BattleState.INACTION;
@@ -274,11 +306,20 @@ public class BattleController : MonoBehaviour
         if (state != BattleState.AIM) return;
 
         targetList.Add(i);
-        if (targetList.Count >= toExec.NOTargets)
+        if (isItems)
         {
             state = BattleState.INACTION;
             hideAimEnemyBtns();
-            StartCoroutine(playerUseSkill());
+            StartCoroutine(playerUseItem());
+        }
+        else
+        {
+            if (targetList.Count >= toExec.NOTargets)
+            {
+                state = BattleState.INACTION;
+                hideAimEnemyBtns();
+                StartCoroutine(playerUseSkill());
+            }
         }
 
     }
@@ -297,10 +338,37 @@ public class BattleController : MonoBehaviour
         dialogue.text = "Aim now.";
     }
 
+    public void onItemBtn(int i)
+    {
+        if (state != BattleState.PTURN) return;
+
+        toUse = playerInventory[i];
+        targetList = new List<int>(0);
+        showAimEnemyBtns();
+        hidePlayerBaseOptions();
+        hideSkills();
+        state = BattleState.AIM;
+
+        dialogue.text = "Aim now.";
+    }
+
+    public void OnAttackBtn()
+    {
+        isItems = false;
+        onSkillBtn(0);
+    }
+
     public void OnSkillBtnPaged(int i)
     {
+        if (isItems)
+        {
+            onItemBtn(i - 1);
+        }
+        else
+        {
+            onSkillBtn(skillPage * 3 + i);
+        }
         back.gameObject.SetActive(false);
-        onSkillBtn(skillPage * 3 + i);
     }
 
     public void OnFleeButton()
@@ -317,6 +385,13 @@ public class BattleController : MonoBehaviour
             return;
 
         showSkills();
+    }
+
+    public void OnItemsButton()
+    {
+        if (state != BattleState.PTURN) return;
+
+        showItems();
     }
 
     IEnumerator EnemyTurn()
@@ -344,6 +419,22 @@ public class BattleController : MonoBehaviour
         if (state == BattleState.WON)
         {
             dialogue.text = "You WON!";
+            yield return new WaitForSeconds(1f);
+            int gotXP = 0;
+            for (int i =0;i<enemyParty.Count;i++)
+            {
+                gotXP += enemyParty[i].level * 10;
+            }
+            dialogue.text = "Your characters got " + gotXP + " XP!";
+            yield return new WaitForSeconds(2f);
+            for (int i=0;i<3;i++)
+            {
+                if (playerParty[i].addXP(gotXP))
+                {
+                    dialogue.text = playerParty[i].unitName + " leveled up!";
+                    yield return new WaitForSeconds(2f);
+                }
+            }
         }
         else if(state == BattleState.LOST)
         {
@@ -391,6 +482,7 @@ public class BattleController : MonoBehaviour
 
     void showSkills()
     {
+        isItems = false;
         back.gameObject.SetActive(true);
         hidePlayerBaseOptions();
         if (skillPage > 0)
@@ -412,6 +504,30 @@ public class BattleController : MonoBehaviour
             else aSkill[i - 1].gameObject.SetActive(false);
         }
     }
+
+    void showItems()
+    {
+        isItems = true;
+        back.gameObject.SetActive(true);
+        hidePlayerBaseOptions();
+        if (skillPage > 0)
+            prevPageSkills.gameObject.SetActive(true);
+        else prevPageSkills.gameObject.SetActive(false);
+        if (skillPage < (int)(System.Math.Ceiling(playerInventory.Count / 3.0) -1))
+            nextPageSkills.gameObject.SetActive(true);
+        else nextPageSkills.gameObject.SetActive(false);
+        for (int i = 0; i < 3; i++)
+        {
+            if (skillPage * 3 + i < playerInventory.Count)
+            {
+                InventoryInfo.ItemInfo toDisplay = playerInventory[skillPage * 3 + i];
+                aSkill[i].gameObject.SetActive(true);
+                aSkill[i].GetComponentInChildren<Text>().text = toDisplay.Name;
+            }
+            else aSkill[i].gameObject.SetActive(false);
+        }
+    }
+
 
     void hideSkills()
     {

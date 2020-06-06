@@ -5,6 +5,8 @@ using UnityEngine;
 namespace InventoryInfo{
     public class ItemInfo
     {
+        string name;
+        public string Name { get => name; }
         protected string type  //Zamienić na enum?
         { get; set; }
         protected string description
@@ -15,8 +17,9 @@ namespace InventoryInfo{
         public ItemInfo()
         { }
 
-        public ItemInfo(string type, string description, string icon)
+        public ItemInfo(string nam, string type, string description, string icon)
         {
+            this.name = nam;
             this.type = type;
             this.description = description;
             this.icon = icon;

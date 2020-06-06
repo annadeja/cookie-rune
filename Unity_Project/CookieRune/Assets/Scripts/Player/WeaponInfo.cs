@@ -14,7 +14,7 @@ namespace InventoryInfo
         public WeaponInfo() : base()
         { }
 
-        public WeaponInfo(int physicalDamage, int magicalDamage, string type, string description, string icon) : base(type, description, icon)
+        public WeaponInfo(string nam, int physicalDamage, int magicalDamage, string type, string description, string icon) : base(nam, type, description, icon)
         {
             this.physicalDamage = physicalDamage;
             this.magicalDamage = magicalDamage;

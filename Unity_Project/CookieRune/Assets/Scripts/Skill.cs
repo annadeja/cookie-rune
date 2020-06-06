@@ -38,7 +38,7 @@ public class Skill
         int offset = (int)(stat * this.modifier);
         if (this.isPositive)
         {
-            target.takeDmg(-offset);
+            target.heal(offset);
         }
         else
         {
@@ -52,5 +52,12 @@ public class Skill
     public Skill Copy()
     {
         return new Skill(this.name, this.isPositive, this.isRanged, this.isSpecialCast, this.isMagic, this.mpCost, this.nOTargets, this.modifier);
+    }
+
+    public bool Compare(Skill toCmp)
+    {
+        return (this.name == toCmp.Name) && (this.IsPositive == toCmp.IsPositive) && (this.isRanged == toCmp.IsRanged) &&
+               (this.isMagic == toCmp.IsMagic) && (this.mpCost == toCmp.MpCost) && (this.nOTargets == toCmp.NOTargets) &&
+               (this.modifier == toCmp.Modifier);
     }
 }

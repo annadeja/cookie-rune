@@ -9,10 +9,10 @@ namespace InventoryInfo
         public ConsumableInfo() : base()
         { }
 
-        public ConsumableInfo(string type, string description, string icon) : base(type, description, icon)
+        public ConsumableInfo(string nam, string type, string description, string icon) : base(nam, type, description, icon)
         { }
 
-        public virtual void takeEffect() //Tu będzie przeciążana funkcja efektu przedmiotu.
+        public virtual void takeEffect(Character target) //Tu będzie przeciążana funkcja efektu przedmiotu.
         { }
     }
 }

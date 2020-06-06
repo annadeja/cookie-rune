@@ -20,7 +20,15 @@ public class Character : System.IComparable
     public int curMP;
     public int maxMP;
 
+    int curXP;
+    public int CurXP { get => curXP; }
+    int nxtXP;
+    int lp;
+    public int Lp { get => lp; }
+
     List<Skill> skills;
+
+    GameObject body;
 
     public Character()
     {
@@ -50,16 +58,65 @@ public class Character : System.IComparable
         this.mag = mag;
         this.mdef = mdef;
         this.spd = spd;
+        curXP = 0;
+        nxtXP = 100;
+        lp = 10;
         skills = new List<Skill>();
         skills.Add(new Skill("Attack", false, false, false, false, 0, 1, 1f));
     }
 
-    public bool takeDmg(int dmg)
+    public Character(string nam, int lvl, int mHP, int mMP, int atk, int def, int mag, int mdef, int spd, int curXP)
+    {
+        unitName = nam;
+        level = lvl;
+        maxHP = mHP;
+        curHP = maxHP;
+        maxMP = mMP;
+        curMP = maxMP;
+        this.atk = atk;
+        this.def = def;
+        this.mag = mag;
+        this.mdef = mdef;
+        this.spd = spd;
+        this.curXP = curXP;
+        nxtXP = 100;
+        lp = 10;
+        skills = new List<Skill>();
+        skills.Add(new Skill("Attack", false, false, false, false, 0, 1, 1f));
+    }
+
+    public void takeDmg(int dmg)
     {
         if (dmg > 0) curHP -= dmg;
 
-        if (curHP <= 0) return true;
-        return false;
+        if (curHP < 0) curHP = 0;
+    }
+
+    public void heal(int hp)
+    {
+        if (hp > 0) curHP += hp;
+
+        if (curHP > maxHP) curHP = maxHP;
+    }
+
+    public int calcNextXP()
+    {
+        return level * 100;
+    }
+
+    public bool checkLevelUp()
+    {
+        bool ret = false;
+        if (curXP >= nxtXP)
+        {
+            level++;
+            curXP -= nxtXP;
+            lp += 10;
+            nxtXP = calcNextXP();
+            ret = true;
+        }
+        if (curXP >= nxtXP) checkLevelUp();
+        return ret;
     }
 
     public Skill getSkill(int i)
@@ -86,6 +143,34 @@ public class Character : System.IComparable
     public int getSkillCount()
     {
         return skills.Count - 1;
+    }
+
+    public bool hasSkill(Skill template)
+    {
+        bool ret = false;
+        foreach (Skill skill in skills)
+        {
+            ret = skill.Compare(template);
+        }
+        return ret;
+    }
+
+    public bool addXP(int value)
+    {
+        curXP += value;
+        return checkLevelUp();
+    }
+
+    public void setNewStats(int atk, int def, int mag, int mdef, int spd, int mHP, int mMP, int lp)
+    {
+        this.atk = atk;
+        this.def = def;
+        this.mag = mag;
+        this.mdef = mdef;
+        this.spd = spd;
+        this.maxHP = mHP;
+        this.maxMP = mMP;
+        this.lp = lp;
     }
 
 }

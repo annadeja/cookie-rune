@@ -9,7 +9,7 @@ public class InfoCarrier : MonoBehaviour
     [SerializeField] string lastLocation;
     [Header("Party")]
     List<Character> party;
-    List<InventoryInfo.ItemInfo> inventory;
+    List<InventoryInfo.ItemInfo> inventory = new List<ItemInfo>();
     int credits = 0;
     List<Character> enemyParty;
 
@@ -21,6 +21,9 @@ public class InfoCarrier : MonoBehaviour
         party[2].addSkill(new Skill("Linux", false, false, true, true, 666, 12, 4.20f));
         party[2].addSkill(new Skill("CO", false, false, false, false, 10, 1, 0.1f));
         party[2].addSkill(new Skill("Inferno", false, true, true, true, 50, 1, 1.5f));
+        party[2].addSkill(new Skill("Heal", true, true, true, true, 20, 1, 1f));
+        InventoryInfo.ItemInfo item = new InventoryInfo.ConsumableInfo("Dorito", "H", "A dorito. ONLY ONE DORITO. Tastes like a conspiracy.", "") as InventoryInfo.ItemInfo;
+        addToInventory(item);
     }
 
     void Update()
@@ -87,18 +90,18 @@ public class InfoCarrier : MonoBehaviour
         return enemyParty;
     }
 
+    public List<InventoryInfo.ItemInfo> getInventory()
+    {
+        return inventory;
+    }
+
     private void debugParty()
     {
         foreach (Character chara in party)
         {
             if (chara != null)
             {
-                Debug.Log(chara.unitName);
-                Debug.Log(chara.curHP + "/" + chara.maxHP);
-                Debug.Log(chara.atk);
-                Debug.Log(chara.def);
-                Debug.Log(chara.mag);
-                Debug.Log(chara.mdef);
+                Debug.Log(chara.Lp);
             }
         }
     }
