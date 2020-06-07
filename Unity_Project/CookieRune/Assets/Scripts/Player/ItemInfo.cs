@@ -42,6 +42,9 @@ namespace InventoryInfo{
             this.value = itemInfo.Value;
         }
 
+        public virtual void takeEffect(Character target) //Tu będzie przeciążana funkcja efektu przedmiotu.
+        { }
+
         public virtual ArrayList getStats()
         {
             ArrayList stats = new ArrayList();

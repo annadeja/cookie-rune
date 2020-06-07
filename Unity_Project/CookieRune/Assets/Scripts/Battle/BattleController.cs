@@ -32,6 +32,8 @@ public class BattleController : MonoBehaviour
     public Button skillBtn;
     public Button runBtn;
     public Button itemsBtn;
+    public Button[] pAimBtns;
+
     [Header("Skills UI")]
     public Button[] aSkill;
     public Button nextPageSkills;
@@ -132,6 +134,8 @@ public class BattleController : MonoBehaviour
         updateHP();
         updateMP();
 
+        hideAimPlayerBtns();
+        hideAimEnemyBtns();
         hidePlayerBaseOptions();
         hideSkills();
         back.gameObject.SetActive(false);
@@ -210,7 +214,6 @@ public class BattleController : MonoBehaviour
 
     IEnumerator playerUseItem()
     {
-        playerInventory.Remove(toUse);
         for (int i = 0; i < targetList.Count; i++)
         {
             //init phase
@@ -223,11 +226,19 @@ public class BattleController : MonoBehaviour
 
             //end phase
             dialogue.text = "end item: " + toUse.Name;
+            //Debug.Log(playerParty[targetList[i]].CurHP);
+            if (toUse.Type == "Offensive")
+                toUse.takeEffect(enemyParty[targetList[i]]);
+            else
+                toUse.takeEffect(playerParty[targetList[i]]);
             updateHP();
+            updateMP();
+            //Debug.Log(playerParty[targetList[i]].CurHP);
             yield return new WaitForSeconds(1f);
         }
 
         dialogue.text = "post: " + toUse.Name;
+        playerInventory.Remove(toUse);
         toUse = null;
         yield return new WaitForSeconds(1f);
 
@@ -282,7 +293,6 @@ public class BattleController : MonoBehaviour
         }
         else if (playerParty.Contains(allCharas[turnIterator]))
         {
-            
             playerTurn();
         }
     }
@@ -309,6 +319,7 @@ public class BattleController : MonoBehaviour
         if (isItems)
         {
             state = BattleState.INACTION;
+            hideAimPlayerBtns();
             hideAimEnemyBtns();
             StartCoroutine(playerUseItem());
         }
@@ -317,11 +328,11 @@ public class BattleController : MonoBehaviour
             if (targetList.Count >= toExec.NOTargets)
             {
                 state = BattleState.INACTION;
+                hideAimPlayerBtns();
                 hideAimEnemyBtns();
                 StartCoroutine(playerUseSkill());
             }
         }
-
     }
 
     public void onSkillBtn(int i)
@@ -330,7 +341,10 @@ public class BattleController : MonoBehaviour
 
         toExec = allCharas[turnIterator].getSkill(i);
         targetList = new List<int>(0);
-        showAimEnemyBtns();
+        if (toExec.IsPositive)
+            showAimPlayerBtns();
+        else
+            showAimEnemyBtns();
         hidePlayerBaseOptions();
         hideSkills();
         state = BattleState.AIM;
@@ -344,7 +358,10 @@ public class BattleController : MonoBehaviour
 
         toUse = playerInventory[i];
         targetList = new List<int>(0);
-        showAimEnemyBtns();
+        if (toUse.Type == "Offensive")
+            showAimEnemyBtns();
+        else
+            showAimPlayerBtns();
         hidePlayerBaseOptions();
         hideSkills();
         state = BattleState.AIM;
@@ -461,6 +478,22 @@ public class BattleController : MonoBehaviour
         for (int i = 0; i < enemyParty.Count; i++)
         {
             eAimBtns[i].gameObject.SetActive(false);
+        }
+    }
+
+    void showAimPlayerBtns()
+    {
+        for (int i = 0; i < playerParty.Count; i++)
+        {
+            pAimBtns[i].gameObject.SetActive(true);
+        }
+    }
+
+    void hideAimPlayerBtns()
+    {
+        for (int i = 0; i < playerParty.Count; i++)
+        {
+            pAimBtns[i].gameObject.SetActive(false);
         }
     }
 

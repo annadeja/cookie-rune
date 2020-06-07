@@ -7,6 +7,7 @@ public class Character : System.IComparable
     public string unitName;
     public int level;
     public int curHP;
+    public int CurHP { get => curHP; }
     public int maxHP;
 
     public int atk;
@@ -97,6 +98,13 @@ public class Character : System.IComparable
         if (hp > 0) curHP += hp;
 
         if (curHP > maxHP) curHP = maxHP;
+    }
+
+    public void restoreMP(int mp)
+    {
+        if (mp > 0) curMP += mp;
+
+        if (curMP > maxMP) curMP = maxMP;
     }
 
     public int calcNextXP()

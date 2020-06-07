@@ -22,7 +22,7 @@ public class InfoCarrier : MonoBehaviour
         party[2].addSkill(new Skill("CO", false, false, false, false, 10, 1, 0.1f));
         party[2].addSkill(new Skill("Inferno", false, true, true, true, 50, 1, 1.5f));
         party[2].addSkill(new Skill("Heal", true, true, true, true, 20, 1, 1f));
-        InventoryInfo.ItemInfo item = new InventoryInfo.ConsumableInfo("Dorito", "H", "A dorito. ONLY ONE DORITO. Tastes like a conspiracy.", "", 69) as InventoryInfo.ItemInfo;
+        InventoryInfo.ItemInfo item = new InventoryInfo.ConsumableInfo("Dorito", "Healing", "A dorito. ONLY ONE DORITO. Tastes like a conspiracy.", "", 69, 69) as InventoryInfo.ItemInfo;
         addToInventory(item);
     }
 

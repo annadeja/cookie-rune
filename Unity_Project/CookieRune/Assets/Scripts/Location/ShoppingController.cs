@@ -12,9 +12,12 @@ public class ShoppingController : MonoBehaviour
     public Button buyButton;
     public Button sellButton;
     public Text playerCredits;
-    public Button[] productBtns = new Button[5];
     public Button nextPage;
     public Button prevPage;
+
+    [Header("Product UI")]
+    public Button[] productBtns = new Button[5];
+    public Text[] prices = new Text[5];
 
     [Header("Camera settings")]
     public Camera mainCam;
@@ -34,13 +37,11 @@ public class ShoppingController : MonoBehaviour
     {
         popup.gameObject.SetActive(false);
         itemList.gameObject.SetActive(false);
-        buyButton.gameObject.SetActive(false);
-        sellButton.gameObject.SetActive(false);
         initialCameraPosition = mainCam.transform.position;
         carrier = GameObject.Find("ObjectCarrier").GetComponent<InfoCarrier>();
         playersItems = carrier.getInventory();
 
-        itemsForSale.Add(new InventoryInfo.ConsumableInfo("japko", "meme", "You know. ;^)", "", 0));
+        itemsForSale.Add(new InventoryInfo.ConsumableInfo("japko", "meme", "You know. ;^)", "", 0, 0));
         itemsForSale.Add(new InventoryInfo.ArmorInfo("Niedzwiedz", 420, 420, "Inside joke", "No.", "", 420));
         itemsForSale.Add(new InventoryInfo.WeaponInfo("Tryptyk", 666, 666, "Inside joke", "No.", "", 666));
     }
@@ -108,24 +109,36 @@ public class ShoppingController : MonoBehaviour
             items = itemsForSale;
         else
             items = playersItems;
-
-        if (page <= 0) prevPage.gameObject.SetActive(false);
-        else prevPage.gameObject.SetActive(true);
-        if (page >= (items.Count - 1) / 5) nextPage.gameObject.SetActive(false);
-        else nextPage.gameObject.SetActive(true);
+        if (page <= 0)
+            prevPage.gameObject.SetActive(false);
+        else
+            prevPage.gameObject.SetActive(true);
+        if (page >= (items.Count - 1) / 5)
+            nextPage.gameObject.SetActive(false);
+        else
+            nextPage.gameObject.SetActive(true);
 
         for (int i = 0; i < 5; i++)
         {
-            if (page * 5 + i >= items.Count) productBtns[i].gameObject.SetActive(false);
+            if (page * 5 + i >= items.Count)
+            {
+                productBtns[i].gameObject.SetActive(false);
+                prices[i].gameObject.SetActive(false);
+            }
             else
             {
                 productBtns[i].gameObject.SetActive(true);
+                prices[i].gameObject.SetActive(true);
                 if (isBuying && carrier.getPartyCredits() < items[page * 5 + i].Value)
                     productBtns[i].interactable = false;
                 else
                     productBtns[i].interactable = true;
+                productBtns[i].GetComponentInChildren<Text>().text = items[page * 5 + i].Name;
 
-                productBtns[i].GetComponentInChildren<Text>().text = items[page * 5 + i].Name + "       " + items[page * 5 + i].Value + " C";
+                if (isBuying)
+                    prices[i].text = items[page * 5 + i].Value + " C";
+                else
+                    prices[i].text = items[page * 5 + i].Value / 2 + " C";
             }
         }
     }

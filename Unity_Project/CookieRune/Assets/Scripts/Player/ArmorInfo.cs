@@ -28,6 +28,11 @@ namespace InventoryInfo
             this.magicalDefense = armorInfo.MagicalDefense;
         }
 
+        public override void takeEffect(Character target)
+        {
+
+        }
+
         public override ArrayList getStats()
         {
             ArrayList stats = new ArrayList();
