@@ -64,6 +64,7 @@ public class Character : System.IComparable
         lp = 10;
         skills = new List<Skill>();
         skills.Add(new Skill("Attack", false, false, false, false, 0, 1, 1f));
+        body = Resources.Load("CharacterBodies\\" + unitName + "Body") as GameObject;
     }
 
     public Character(string nam, int lvl, int mHP, int mMP, int atk, int def, int mag, int mdef, int spd, int curXP)
@@ -181,4 +182,8 @@ public class Character : System.IComparable
         this.lp = lp;
     }
 
+    public GameObject getBody()
+    {
+        return body;
+    }
 }

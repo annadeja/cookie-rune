@@ -50,12 +50,14 @@ public class BattleController : MonoBehaviour
     public BattleState state;
 
     [Header("Battle Stations")]
-    public Transform[] pBattleStation;
-    public Transform[] eBattleStation;
+    public Transform[] pBattleStation = new Transform[3];
+    public Transform[] eBattleStation = new Transform[3];
 
     List<Character> playerParty;
     List<InventoryInfo.ItemInfo> playerInventory;
     List<Character> enemyParty;
+
+    List<GameObject> bodies = new List<GameObject>();
 
     // turn control
     int turnIterator = 0;
@@ -102,6 +104,11 @@ public class BattleController : MonoBehaviour
         allCharas.Capacity = playerParty.Capacity + enemyParty.Capacity;
         allCharas.Sort();
         turnIterator = 0;
+
+        for (int i=0;i<playerParty.Count;i++)
+        {
+            bodies.Add(Instantiate(playerParty[i].getBody(), pBattleStation[i]));
+        }
 
         for (int i = 0; i < 3; i++)
         {
