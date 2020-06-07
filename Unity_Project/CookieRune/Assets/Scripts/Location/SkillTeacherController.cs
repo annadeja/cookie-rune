@@ -9,8 +9,10 @@ public class SkillTeacherController : MonoBehaviour
     public GameObject trainingPan;
     public Text lPs;
     public Text popup;
+    public Color highlightColor;
 
     [Header("Stats UI")]
+    public Color statColor;
     public Text statTxtAtk;
     public Text statTxtDef;
     public Text statTxtMag;
@@ -20,6 +22,7 @@ public class SkillTeacherController : MonoBehaviour
     public Text statTxtMP;
 
     [Header("Skills UI")]
+    public Color btnColor;
     public Button[] aSkill = new Button[3];
     public Button nextPage;
     public Button prevPage;
@@ -29,7 +32,7 @@ public class SkillTeacherController : MonoBehaviour
     public Button[] party = new Button[3];
 
     private List<Skill> skillsToLearn = new List<Skill>();
-    private List<Skill> learntSkills = new List<Skill>();
+    private List<Skill> learnedSkills = new List<Skill>();
     private InfoCarrier carrier;
 
     private int page = 0;
@@ -72,9 +75,9 @@ public class SkillTeacherController : MonoBehaviour
         isExited = Input.GetButtonDown("Cancel");
     }
 
-    bool isSkillLearnt(Skill template)
+    bool isSkillLearned(Skill template)
     {
-        foreach (Skill skill in learntSkills)
+        foreach (Skill skill in learnedSkills)
         {
             if (skill.Compare(template)) return true;
         }
@@ -93,10 +96,10 @@ public class SkillTeacherController : MonoBehaviour
             else
             {
                 aSkill[i].gameObject.SetActive(true);
-                if (curChara.hasSkill(skillsToLearn[page * 3 + i]) || ((nLp <= 0) && !(isSkillLearnt(skillsToLearn[page * 3 + i])))) aSkill[i].interactable = false;
+                if (curChara.hasSkill(skillsToLearn[page * 3 + i]) || ((nLp <= 0) && !(isSkillLearned(skillsToLearn[page * 3 + i])))) aSkill[i].interactable = false;
                 else aSkill[i].interactable = true;
-                if (isSkillLearnt(skillsToLearn[page * 3 + i])) aSkill[i].GetComponent<Image>().color = Color.blue;
-                else aSkill[i].GetComponent<Image>().color = Color.white;
+                if (isSkillLearned(skillsToLearn[page * 3 + i])) aSkill[i].GetComponent<Image>().color = highlightColor;
+                else aSkill[i].GetComponent<Image>().color = btnColor;
                 aSkill[i].GetComponentInChildren<Text>().text = skillsToLearn[page * 3 + i].Name;
             }
         }
@@ -113,20 +116,20 @@ public class SkillTeacherController : MonoBehaviour
         statTxtMP.text = "" + nMP;
         lPs.text = nLp + "/" + curChara.Lp;
 
-        if (curChara.atk < nAtk) statTxtAtk.color = Color.blue;
-        else statTxtAtk.color = Color.black;
-        if (curChara.def < nDef) statTxtDef.color = Color.blue;
-        else statTxtDef.color = Color.black;
-        if (curChara.mag < nMag) statTxtMag.color = Color.blue;
-        else statTxtMag.color = Color.black;
-        if (curChara.mdef < nMdef) statTxtMdef.color = Color.blue;
-        else statTxtMdef.color = Color.black;
-        if (curChara.spd < nSpd) statTxtSpd.color = Color.blue;
-        else statTxtSpd.color = Color.black;
-        if (curChara.maxHP < nHP) statTxtHP.color = Color.blue;
-        else statTxtHP.color = Color.black;
-        if (curChara.maxMP < nMP) statTxtMP.color = Color.blue;
-        else statTxtMP.color = Color.black;
+        if (curChara.atk < nAtk) statTxtAtk.color = highlightColor;
+        else statTxtAtk.color = statColor;
+        if (curChara.def < nDef) statTxtDef.color = highlightColor;
+        else statTxtDef.color = statColor;
+        if (curChara.mag < nMag) statTxtMag.color = highlightColor;
+        else statTxtMag.color = statColor;
+        if (curChara.mdef < nMdef) statTxtMdef.color = highlightColor;
+        else statTxtMdef.color = statColor;
+        if (curChara.spd < nSpd) statTxtSpd.color = highlightColor;
+        else statTxtSpd.color = statColor;
+        if (curChara.maxHP < nHP) statTxtHP.color = highlightColor;
+        else statTxtHP.color = statColor;
+        if (curChara.maxMP < nMP) statTxtMP.color = highlightColor;
+        else statTxtMP.color = statColor;
     }
 
     void showTrainingWin()
@@ -305,14 +308,14 @@ public class SkillTeacherController : MonoBehaviour
 
     public void OnSkillBtn(int i)
     {
-        if (isSkillLearnt(skillsToLearn[page * 3 + i]))
+        if (isSkillLearned(skillsToLearn[page * 3 + i]))
         {
-            learntSkills.Remove(skillsToLearn[page * 3 + i]);
+            learnedSkills.Remove(skillsToLearn[page * 3 + i]);
             nLp++;
         }
         else
         {
-            learntSkills.Add(skillsToLearn[page * 3 + i]);
+            learnedSkills.Add(skillsToLearn[page * 3 + i]);
             nLp--;
         }
         showStats();
@@ -322,11 +325,11 @@ public class SkillTeacherController : MonoBehaviour
     public void OnConfirmBtn()
     {
         curChara.setNewStats(nAtk, nDef, nMag, nMdef, nSpd, nHP, nMP, nLp);
-        foreach (Skill skill in learntSkills)
+        foreach (Skill skill in learnedSkills)
         {
             curChara.addSkill(skill);
         }
-        learntSkills = new List<Skill>();
+        learnedSkills = new List<Skill>();
         showSkills();
         showStats();
     }
