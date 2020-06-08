@@ -49,7 +49,6 @@ public class SkillTeacherController : MonoBehaviour
     private Character curChara;
 
     private bool isEntered = false;
-    private bool isExited = false;
 
     // Start is called before the first frame update
     void Start()
@@ -71,8 +70,20 @@ public class SkillTeacherController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        isEntered = Input.GetButtonDown("Submit");
-        isExited = Input.GetButtonDown("Cancel");
+        if (isEntered)
+        {
+            if (Input.GetButtonDown("Submit"))
+            {
+                charaPickPan.SetActive(true);
+                popup.gameObject.SetActive(false);
+            }
+        }
+        if (!isEntered || Input.GetButtonDown("Cancel"))
+        {
+            hideTrainingWin();
+            charaPickPan.SetActive(false);
+        }
+
     }
 
     bool isSkillLearned(Skill template)
@@ -292,6 +303,7 @@ public class SkillTeacherController : MonoBehaviour
             default:
                 break;
         }
+        showSkills();
     }
 
     public void OnNextPageBtn()
@@ -339,6 +351,7 @@ public class SkillTeacherController : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             popup.gameObject.SetActive(true);
+            isEntered = true;
         }
     }
 
@@ -347,24 +360,7 @@ public class SkillTeacherController : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             popup.gameObject.SetActive(false);
-        }
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            if (isEntered)
-            {
-                charaPickPan.SetActive(true);
-                popup.gameObject.SetActive(false);
-            }
-            if (isExited)
-            {
-                popup.gameObject.SetActive(true);
-                hideTrainingWin();
-                charaPickPan.SetActive(false);
-            }
+            isEntered = false;
         }
     }
 }

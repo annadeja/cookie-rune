@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MineFight_Scene.unity
     guid: 24ccfa0ccc65b8a42886e25a98a3f73f
+  - enabled: 1
+    path: Assets/Scenes/GameOver_Scene.unity
+    guid: ad4a7e968748ebf4fb1823485dc1b083
   m_configObjects: {}

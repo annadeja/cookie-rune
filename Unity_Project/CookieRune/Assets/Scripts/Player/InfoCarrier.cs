@@ -12,6 +12,7 @@ public class InfoCarrier : MonoBehaviour
     List<InventoryInfo.ItemInfo> inventory = new List<ItemInfo>();
     int credits = 0;
     List<Character> enemyParty;
+    List<System.Tuple<string, bool>> pastEncounters = new List<System.Tuple<string, bool>>();
 
     void Start()
     {
@@ -93,6 +94,27 @@ public class InfoCarrier : MonoBehaviour
     public List<InventoryInfo.ItemInfo> getInventory()
     {
         return inventory;
+    }
+
+    public void addEncounter(string name)
+    {
+        pastEncounters.Add(System.Tuple.Create(name, false));
+    }
+
+    public void setLastEncounterVictory(bool outcome)
+    {
+        if (pastEncounters != null)
+            pastEncounters[pastEncounters.Count - 1] = System.Tuple.Create(pastEncounters[pastEncounters.Count - 1].Item1, outcome);
+    }
+
+    public List<System.Tuple<string, bool>> getPastEncounters()
+    {
+        return pastEncounters;
+    }
+
+    public void clearEncounters()
+    {
+        pastEncounters = new List<System.Tuple<string, bool>>();
     }
 
     private void debugParty()

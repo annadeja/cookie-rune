@@ -79,7 +79,6 @@ public class CharacterControllerWorld : MonoBehaviour
     {
         if (other.gameObject.tag == "Location")
         {
-            Debug.Log("Now in location: " + other.gameObject.name);
             inLocation = other.gameObject.GetComponent<LocationInfo>();
             InfoCarrier carrier = GameObject.Find("ObjectCarrier").GetComponent<InfoCarrier>();
             if (carrier != null)
@@ -93,7 +92,6 @@ public class CharacterControllerWorld : MonoBehaviour
     {
         if (other.gameObject.tag == "Location")
         {
-            Debug.Log("Leaving location: " + other.gameObject.name);
             inLocation = null;
         }
     }

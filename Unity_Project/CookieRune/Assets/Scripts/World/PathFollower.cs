@@ -21,21 +21,22 @@ public class PathFollower : MonoBehaviour
         {
             if (inMotion)
             {
-                if ((transform.position - moveToWaypoint.position).magnitude <= 0.2f)
+                float debug = (transform.position - moveToWaypoint.position).magnitude;
+                if (debug <= 0.51f)
                 {
                     inMotion = !isAtEnd();
                     path.nextWaypoint();
                     moveToWaypoint = path.getCurrentWaypoint();
                     moveToVec = (moveToWaypoint.position - transform.position);
                 }
-                transform.Translate(moveToVec.normalized * moveToVec.magnitude * Time.deltaTime);
+                transform.Translate(moveToVec.normalized / 2);
             }
         }
     }
 
     bool isAtEnd()
     {
-        return (path.getEnd().position - transform.position).magnitude <= 0.2f;
+        return (path.getEnd().position - transform.position).magnitude <= 0.51f;
     }
 
     public void initMovement()
@@ -61,5 +62,10 @@ public class PathFollower : MonoBehaviour
     public void startMotion()
     {
         inMotion = true;
+    }
+
+    public bool IsInMotion()
+    {
+        return inMotion;
     }
 }

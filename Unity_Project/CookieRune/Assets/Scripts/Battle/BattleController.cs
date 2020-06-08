@@ -52,12 +52,14 @@ public class BattleController : MonoBehaviour
     [Header("Battle Stations")]
     public Transform[] pBattleStation = new Transform[3];
     public Transform[] eBattleStation = new Transform[3];
+    public MovementPath[] playerPaths = new MovementPath[9];
 
     List<Character> playerParty;
     List<InventoryInfo.ItemInfo> playerInventory;
     List<Character> enemyParty;
 
-    List<GameObject> bodies = new List<GameObject>();
+    List<GameObject> playerBodies = new List<GameObject>();
+    List<GameObject> enemyBodies = new List<GameObject>();
 
     // turn control
     int turnIterator = 0;
@@ -107,7 +109,11 @@ public class BattleController : MonoBehaviour
 
         for (int i=0;i<playerParty.Count;i++)
         {
-            bodies.Add(Instantiate(playerParty[i].getBody(), pBattleStation[i]));
+            playerBodies.Add(Instantiate(playerParty[i].getBody(), pBattleStation[i]));
+        }
+        for (int i = 0; i < enemyParty.Count; i++)
+        {
+            enemyBodies.Add(Instantiate(enemyParty[i].getBody(), eBattleStation[i]));
         }
 
         for (int i = 0; i < 3; i++)
@@ -189,16 +195,29 @@ public class BattleController : MonoBehaviour
 
     IEnumerator playerUseSkill()
     {
+        dialogue.text = "init skill: " + toExec.Name;
         allCharas[turnIterator].curMP -= toExec.MpCost;
         updateMP();
+        int playerCharaIdx = Mathf.Abs(playerParty.BinarySearch(allCharas[turnIterator]));
+        GameObject curBody = playerBodies[playerCharaIdx];
+        PathFollower curBodyMovement = curBody.GetComponent<PathFollower>();
         for (int i = 0; i < targetList.Count; i++)
         {
             //init phase
-            dialogue.text = "init skill: " + toExec.Name;
-            yield return new WaitForSeconds(1f);
+            dialogue.text = "start skill: " + toExec.Name;
+            if (!toExec.IsRanged)
+            {
+                curBodyMovement.setPath(playerPaths[playerCharaIdx * 3 + targetList[i]]);
+                curBodyMovement.initMovement();
+                curBodyMovement.startMotion();
+                yield return new WaitWhile(curBodyMovement.IsInMotion);
+            }
+
+            //yield return new WaitForSeconds(1f);
 
             //mid phase
             dialogue.text = "mid skill: " + toExec.Name;
+            //tu start animacji
             yield return new WaitForSeconds(1f);
 
             //end phase
@@ -208,7 +227,17 @@ public class BattleController : MonoBehaviour
             if (toExec.IsPositive) toExec.useWithStatOn(stat, playerParty[targetList[i]]);
             else toExec.useWithStatOn(stat, enemyParty[targetList[i]]);
             updateHP();
-            yield return new WaitForSeconds(1f);
+            if (enemyParty[targetList[i]].CurHP <= 0) enemyBodies[targetList[i]].SetActive(false);
+
+            if (!toExec.IsRanged)
+            {
+                playerPaths[playerCharaIdx * 3 + targetList[i]].resetPathNeg();
+                curBodyMovement.initMovement();
+                curBodyMovement.startMotion();
+                yield return new WaitWhile(curBodyMovement.IsInMotion);
+                playerPaths[playerCharaIdx * 3 + targetList[i]].resetPath();
+            }
+            //yield return new WaitForSeconds(1f);
         }
 
         dialogue.text = "post: " + toExec.Name;
@@ -428,7 +457,8 @@ public class BattleController : MonoBehaviour
 
             yield return new WaitForSeconds(.5f);
 
-            playerParty[Random.Range(0, 2)].takeDmg(allCharas[turnIterator].atk);
+            int target = Random.Range(0, 2);
+            playerParty[target].takeDmg(allCharas[turnIterator].atk - playerParty[target].def);
             updateHP();
 
             yield return new WaitForSeconds(.5f);
@@ -459,17 +489,21 @@ public class BattleController : MonoBehaviour
                     yield return new WaitForSeconds(2f);
                 }
             }
+            GameObject.Find("ObjectCarrier").GetComponent<InfoCarrier>().setLastEncounterVictory(true);
+            SceneManager.LoadScene("SugarMine_Scene");
         }
         else if(state == BattleState.LOST)
         {
             dialogue.text = "You Lost!";
+            SceneManager.LoadScene("GameOver_Scene");
         }
         else if (state == BattleState.RUN)
         {
             dialogue.text = "You fled...";
+            SceneManager.LoadScene("SugarMine_Scene");
         }
         yield return new WaitForSeconds(2f);
-        SceneManager.LoadScene("SugarMine_Scene");
+        
     }
 
     void showAimEnemyBtns()

@@ -22,6 +22,7 @@ public class ChangeLocation : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
+            GameObject.Find("ObjectCarrier").GetComponent<InfoCarrier>().clearEncounters();
             SceneManager.LoadScene(sceneName);
         }
     }

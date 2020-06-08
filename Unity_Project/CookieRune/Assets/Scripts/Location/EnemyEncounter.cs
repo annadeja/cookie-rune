@@ -41,6 +41,7 @@ public class EnemyEncounter : MonoBehaviour
         {
             InfoCarrier carrier = GameObject.Find("ObjectCarrier").GetComponent<InfoCarrier>();
             carrier.setEnemyParty(enemyParty);
+            carrier.addEncounter(gameObject.name);
             SceneManager.LoadScene(battleName);
         }
     }
