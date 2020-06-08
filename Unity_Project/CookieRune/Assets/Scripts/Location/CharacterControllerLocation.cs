@@ -11,6 +11,8 @@ public class CharacterControllerLocation : MonoBehaviour
     private Animator animator;
     private Transform transform;
     public bool canMove = true;
+    bool inInventory = false;
+    public InventoryController inv;
 
     // Start is called before the first frame update
     void Start()
@@ -24,50 +26,57 @@ public class CharacterControllerLocation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (animator != null && canMove)
+        if (Input.GetButtonDown("Submit"))
         {
-            if (disp.x > 0)
+            inv.toggleInventory();
+        }
+        if (!inInventory)
+        {
+            if (animator != null && canMove)
             {
-                animator.SetBool("movingRight", true);
-                animator.SetBool("movingLeft", false);
+                if (disp.x > 0)
+                {
+                    animator.SetBool("movingRight", true);
+                    animator.SetBool("movingLeft", false);
+                }
+                else if (disp.x < 0)
+                {
+                    animator.SetBool("movingLeft", true);
+                    animator.SetBool("movingRight", false);
+                }
+                else
+                {
+                    animator.SetBool("movingLeft", false);
+                    animator.SetBool("movingRight", false);
+                }
             }
-            else if (disp.x < 0)
+            else if (animator != null && !canMove)
             {
-                animator.SetBool("movingLeft", true);
+                animator.SetBool("movingLeft", false);
                 animator.SetBool("movingRight", false);
             }
-            else
+
+            disp.x = Input.GetAxis("X") * 7;
+            disp.y -= 10 * Time.deltaTime;
+            disp.z = 0;
+            if (control.isGrounded)
             {
-                animator.SetBool("movingLeft", false);
-                animator.SetBool("movingRight", false);
+                disp.y = 0;
+                if (Input.GetButton("Jump"))
+                {
+                    disp.y = 10;
+                }
             }
-        }
-        else if (animator != null && !canMove)
-        {
-            animator.SetBool("movingLeft", false);
-            animator.SetBool("movingRight", false);
-        }
 
-        disp.x = Input.GetAxis("X") * 7;
-        disp.y -= 10 * Time.deltaTime;
-        disp.z = 0;
-        if (control.isGrounded)
-        {
-            disp.y = 0;
-            if (Input.GetButton("Jump"))
+            if (canMove)
             {
-                disp.y = 10;
-            }
-        }
+                control.Move(disp * Time.deltaTime);
 
-        if (canMove)
-        {
-            control.Move(disp * Time.deltaTime);
-
-            if (mainCam != null && transform.position.x < 35 && transform.position.x > -35)
-            {
-                Vector3 camDiff = new Vector3(0, 0, -15);
-                mainCam.transform.position = transform.position + camDiff;
+                if (mainCam != null && transform.position.x < 35 && transform.position.x > -35)
+                {
+                    Vector3 camDiff = new Vector3(0, 0, -15);
+                    mainCam.transform.position = transform.position + camDiff;
+                }
             }
         }
     }

@@ -24,6 +24,7 @@ public class Character : System.IComparable
     int curXP;
     public int CurXP { get => curXP; }
     int nxtXP;
+    public int MaxXP { get => nxtXP; }
     int lp;
     public int Lp { get => lp; }
 

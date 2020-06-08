@@ -8,6 +8,9 @@ public class CharacterControllerWorld : MonoBehaviour
     [SerializeField] LocationInfo inLocation = null;
     [SerializeField] PathFollower moveControl;
     private Animator animator;
+
+    public InventoryController inv;
+    bool isInInventory = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,61 +21,65 @@ public class CharacterControllerWorld : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (inLocation != null)
+        if (!isInInventory)
         {
-            if (Input.GetAxis("X") > 0)
+            if (inLocation != null)
             {
-                if (animator != null)
+                if (Input.GetAxis("X") > 0)
                 {
-                    animator.SetBool("movingLeft", false);
-                    animator.SetBool("movingRight", true);
+                    if (animator != null)
+                    {
+                        animator.SetBool("movingLeft", false);
+                        animator.SetBool("movingRight", true);
+                    }
+                    moveControl.setPath(inLocation.getEast());
+                    moveControl.startMotion();
+                    moveControl.initMovement();
                 }
-                moveControl.setPath(inLocation.getEast());
-                moveControl.startMotion();
-                moveControl.initMovement();
-            }
-            else if (Input.GetAxis("X") < 0)
-            {
-                if (animator != null)
+                else if (Input.GetAxis("X") < 0)
                 {
-                    animator.SetBool("movingLeft", true);
-                    animator.SetBool("movingRight", false);
+                    if (animator != null)
+                    {
+                        animator.SetBool("movingLeft", true);
+                        animator.SetBool("movingRight", false);
+                    }
+                    moveControl.setPath(inLocation.getWest());
+                    moveControl.startMotion();
+                    moveControl.initMovement();
                 }
-                moveControl.setPath(inLocation.getWest());
-                moveControl.startMotion();
-                moveControl.initMovement();
-            }
-            else if (Input.GetAxis("Z") > 0)
-            {
-                if (animator != null)
+                else if (Input.GetAxis("Z") > 0)
                 {
-                    animator.SetBool("movingLeft", false);
-                    animator.SetBool("movingRight", true);
+                    if (animator != null)
+                    {
+                        animator.SetBool("movingLeft", false);
+                        animator.SetBool("movingRight", true);
+                    }
+                    moveControl.setPath(inLocation.getNorth());
+                    moveControl.startMotion();
+                    moveControl.initMovement();
                 }
-                moveControl.setPath(inLocation.getNorth());
-                moveControl.startMotion();
-                moveControl.initMovement();
-            }
-            else if (Input.GetAxis("Z") < 0)
-            {
-                if (animator != null)
+                else if (Input.GetAxis("Z") < 0)
                 {
-                    animator.SetBool("movingLeft", false);
-                    animator.SetBool("movingRight", true);
+                    if (animator != null)
+                    {
+                        animator.SetBool("movingLeft", false);
+                        animator.SetBool("movingRight", true);
+                    }
+                    moveControl.setPath(inLocation.getSouth());
+                    moveControl.startMotion();
+                    moveControl.initMovement();
                 }
-                moveControl.setPath(inLocation.getSouth());
-                moveControl.startMotion();
-                moveControl.initMovement();
-            }
-            else if (Input.GetButtonDown("Fire2"))
-            {
-                string name = inLocation.getLocation();
-                if (name != null)
+                else if (Input.GetButtonDown("Fire2"))
                 {
-                    SceneManager.LoadScene(name);
+                    string name = inLocation.getLocation();
+                    if (name != null)
+                    {
+                        SceneManager.LoadScene(name);
+                    }
                 }
             }
         }
+        if (Input.GetButtonDown("Submit")) inv.toggleInventory();
     }
 
     private void OnTriggerEnter(Collider other)

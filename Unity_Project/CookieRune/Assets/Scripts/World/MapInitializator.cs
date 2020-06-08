@@ -20,9 +20,9 @@ public class MapInitializator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("escape"))
-        {
-            SceneManager.LoadScene("MainMenu_Scene");
-        }
+        //if (Input.GetKeyDown("escape"))
+        //{
+        //    SceneManager.LoadScene("MainMenu_Scene");
+        //}
     }
 }

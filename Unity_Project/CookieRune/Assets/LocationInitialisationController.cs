@@ -13,6 +13,7 @@ public class LocationInitialisationController : MonoBehaviour
             if (encounters[encounters.Count - 1].Item2)
             {
                 Transform lastPos = GameObject.Find(encounters[encounters.Count - 1].Item1).transform;
+                Debug.Log("debug");
                 GameObject.Find("Player").transform.position = lastPos.position + new Vector3(0, 3, 0);
             }
             else

@@ -227,8 +227,10 @@ public class BattleController : MonoBehaviour
             if (toExec.IsPositive) toExec.useWithStatOn(stat, playerParty[targetList[i]]);
             else toExec.useWithStatOn(stat, enemyParty[targetList[i]]);
             updateHP();
-            if (enemyParty[targetList[i]].CurHP <= 0) enemyBodies[targetList[i]].SetActive(false);
-
+            if (!toExec.IsPositive)
+            {
+                if (enemyParty[targetList[i]].CurHP <= 0) enemyBodies[targetList[i]].SetActive(false);
+            }
             if (!toExec.IsRanged)
             {
                 playerPaths[playerCharaIdx * 3 + targetList[i]].resetPathNeg();
@@ -457,8 +459,11 @@ public class BattleController : MonoBehaviour
 
             yield return new WaitForSeconds(.5f);
 
-            int target = Random.Range(0, 2);
+            int target = Random.Range(0, 3);
+            while (playerParty[target].curHP <= 0) target = (target + 1) % 3;
+
             playerParty[target].takeDmg(allCharas[turnIterator].atk - playerParty[target].def);
+            if (playerParty[target].curHP <= 0) playerBodies[target].SetActive(false);
             updateHP();
 
             yield return new WaitForSeconds(.5f);
@@ -474,10 +479,11 @@ public class BattleController : MonoBehaviour
         {
             dialogue.text = "You WON!";
             yield return new WaitForSeconds(1f);
+            int avglvl = (playerParty[0].level + playerParty[1].level + playerParty[2].level) / 3;
             int gotXP = 0;
             for (int i =0;i<enemyParty.Count;i++)
             {
-                gotXP += enemyParty[i].level * 10;
+                gotXP += (int)(Mathf.Pow(2, enemyParty[i].level - avglvl) * 50);
             }
             dialogue.text = "Your characters got " + gotXP + " XP!";
             yield return new WaitForSeconds(2f);
@@ -495,15 +501,15 @@ public class BattleController : MonoBehaviour
         else if(state == BattleState.LOST)
         {
             dialogue.text = "You Lost!";
+            yield return new WaitForSeconds(2f);
             SceneManager.LoadScene("GameOver_Scene");
         }
         else if (state == BattleState.RUN)
         {
             dialogue.text = "You fled...";
+            yield return new WaitForSeconds(1f);
             SceneManager.LoadScene("SugarMine_Scene");
-        }
-        yield return new WaitForSeconds(2f);
-        
+        }        
     }
 
     void showAimEnemyBtns()
