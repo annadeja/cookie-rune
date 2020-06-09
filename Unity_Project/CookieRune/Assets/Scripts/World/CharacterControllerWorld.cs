@@ -69,7 +69,7 @@ public class CharacterControllerWorld : MonoBehaviour
                     moveControl.startMotion();
                     moveControl.initMovement();
                 }
-                else if (Input.GetButtonDown("Fire2"))
+                else if (Input.GetButtonDown("Submit"))
                 {
                     string name = inLocation.getLocation();
                     if (name != null)
@@ -79,7 +79,7 @@ public class CharacterControllerWorld : MonoBehaviour
                 }
             }
         }
-        if (Input.GetButtonDown("Submit")) inv.toggleInventory();
+        if (Input.GetButtonDown("Inventory")) inv.toggleInventory();
     }
 
     private void OnTriggerEnter(Collider other)

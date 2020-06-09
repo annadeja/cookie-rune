@@ -11,10 +11,22 @@ public class Character : System.IComparable
     public int maxHP;
 
     public int atk;
+    public int Atk { get => atk; }
+    public int curAtk;
+    public int CurAtk { get => curAtk; set => curAtk = value; }
     public int def;
+    public int Def { get => def; }
+    public int curDef;
+    public int CurDef { get => curDef; set => curDef = value; }
 
     public int mag;
+    public int Mag { get => mag; }
+    public int curMag;
+    public int CurMag { get => curMag; set => curMag = value; }
     public int mdef;
+    public int Mdef { get => mdef; }
+    public int curMdef;
+    public int CurMdef { get => curMdef; set => curMdef = value; }
 
     public int spd;
 
@@ -27,6 +39,9 @@ public class Character : System.IComparable
     public int MaxXP { get => nxtXP; }
     int lp;
     public int Lp { get => lp; }
+
+    public InventoryInfo.ArmorInfo armor;
+    public InventoryInfo.WeaponInfo weapon;
 
     List<Skill> skills;
 
@@ -56,9 +71,13 @@ public class Character : System.IComparable
         maxMP = mMP;
         curMP = maxMP;
         this.atk = atk;
+        this.curAtk = atk;
         this.def = def;
+        this.curDef = def;
         this.mag = mag;
+        this.curMag = mag;
         this.mdef = mdef;
+        this.curMdef = mdef;
         this.spd = spd;
         curXP = 0;
         nxtXP = 100;
@@ -77,9 +96,13 @@ public class Character : System.IComparable
         maxMP = mMP;
         curMP = maxMP;
         this.atk = atk;
+        this.curAtk = atk;
         this.def = def;
+        this.curDef = def;
         this.mag = mag;
+        this.curMag = mag;
         this.mdef = mdef;
+        this.curMdef = mdef;
         this.spd = spd;
         this.curXP = curXP;
         nxtXP = 100;
@@ -173,9 +196,13 @@ public class Character : System.IComparable
 
     public void setNewStats(int atk, int def, int mag, int mdef, int spd, int mHP, int mMP, int lp)
     {
+        this.curAtk = this.curAtk - this.atk + atk;
         this.atk = atk;
+        this.curDef = this.curDef - this.def + def;
         this.def = def;
+        this.curMag = this.curMag - this.mag + mag;
         this.mag = mag;
+        this.curMdef = this.curMdef - this.mdef + mdef;
         this.mdef = mdef;
         this.spd = spd;
         this.maxHP = mHP;

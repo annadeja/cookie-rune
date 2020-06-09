@@ -42,8 +42,9 @@ public class ShoppingController : MonoBehaviour
         playersItems = carrier.getInventory();
 
         itemsForSale.Add(new InventoryInfo.ConsumableInfo("japko", "meme", "You know. ;^)", "", 0, 0));
-        itemsForSale.Add(new InventoryInfo.ArmorInfo("Niedzwiedz", 420, 420, "Inside joke", "No.", "", 420));
-        itemsForSale.Add(new InventoryInfo.WeaponInfo("Tryptyk", 666, 666, "Inside joke", "No.", "", 666));
+        itemsForSale.Add(new InventoryInfo.ArmorInfo("Niedzwiedz", 420, 420, "Armor", "No.", "", 0));
+        itemsForSale.Add(new InventoryInfo.WeaponInfo("Tryptyk", 666, 666, "Weapon", "No.", "", 0));
+        itemsForSale.Add(new InventoryInfo.WeaponInfo("Bardzo ostra wykalaczka", 666, 666, "Weapon", "No.", "", 0));
     }
 
     // Update is called once per frame
@@ -173,6 +174,7 @@ public class ShoppingController : MonoBehaviour
         {
             carrier.setPartyCredits(carrier.getPartyCredits() - itemsForSale[page * 5 + i].Value);
             playersItems.Add(itemsForSale[page * 5 + i].copy());
+            Debug.Log(playersItems[playersItems.Count - 1].getStats()[0]);
         }
         else
         {

@@ -29,7 +29,7 @@ public class InfoCarrier : MonoBehaviour
 
     void Update()
     {
-        //if (Input.GetButtonDown("Debug Validate")) debugParty();
+        if (Input.GetButtonDown("Debug Validate")) debugParty();
     }
 
     public void addToInventory(ItemInfo item)
@@ -123,7 +123,8 @@ public class InfoCarrier : MonoBehaviour
         {
             if (chara != null)
             {
-                Debug.Log(chara.Lp);
+                Debug.Log(chara.CurAtk);
+                Debug.Log(chara.CurDef);
             }
         }
     }

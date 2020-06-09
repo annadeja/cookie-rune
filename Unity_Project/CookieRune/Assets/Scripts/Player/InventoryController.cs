@@ -144,7 +144,21 @@ public class InventoryController : MonoBehaviour
 
     public void OnAimBtn(int i)
     {
-        toUse.takeEffect(carrier.getCharacter(i));
+        //Debug.Log(toUse.Name);
+        if (toUse.Type == "Armor")
+        {
+            if (carrier.getCharacter(i).armor != null)
+                carrier.getInventory().Add(carrier.getCharacter(i).armor);
+            toUse.takeEffect(carrier.getCharacter(i));
+        }
+        else if (toUse.Type == "Weapon")
+        {
+            if (carrier.getCharacter(i).weapon != null)
+                carrier.getInventory().Add(carrier.getCharacter(i).weapon);
+            toUse.takeEffect(carrier.getCharacter(i));
+        }
+        else
+            toUse.takeEffect(carrier.getCharacter(i));
         carrier.getInventory().Remove(toUse);
         toUse = null;
         deactivateAim();

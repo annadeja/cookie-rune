@@ -26,7 +26,7 @@ public class CharacterControllerLocation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Submit"))
+        if (Input.GetButtonDown("Inventory"))
         {
             inv.toggleInventory();
         }

@@ -222,8 +222,10 @@ public class BattleController : MonoBehaviour
 
             //end phase
             dialogue.text = "end skill: " + toExec.Name;
-            int stat = allCharas[turnIterator].atk;
-            if (toExec.IsMagic) stat = allCharas[turnIterator].mag;
+            int stat = allCharas[turnIterator].CurAtk;
+            Debug.Log(allCharas[turnIterator].CurAtk);
+            Debug.Log(allCharas[turnIterator].CurMag);
+            if (toExec.IsMagic) stat = allCharas[turnIterator].CurMag;
             if (toExec.IsPositive) toExec.useWithStatOn(stat, playerParty[targetList[i]]);
             else toExec.useWithStatOn(stat, enemyParty[targetList[i]]);
             updateHP();
@@ -264,19 +266,30 @@ public class BattleController : MonoBehaviour
 
             //end phase
             dialogue.text = "end item: " + toUse.Name;
-            //Debug.Log(playerParty[targetList[i]].CurHP);
             if (toUse.Type == "Offensive")
                 toUse.takeEffect(enemyParty[targetList[i]]);
+            else if (toUse.Type == "Armor")
+            {
+                if (playerParty[targetList[i]].armor != null)
+                    playerInventory.Add(playerParty[targetList[i]].armor);
+                toUse.takeEffect(playerParty[targetList[i]]);
+            }
+            else if (toUse.Type == "Weapon")
+            {
+                if (playerParty[targetList[i]].weapon != null)
+                    playerInventory.Add(playerParty[targetList[i]].weapon);
+                toUse.takeEffect(playerParty[targetList[i]]);
+            }
             else
                 toUse.takeEffect(playerParty[targetList[i]]);
             updateHP();
             updateMP();
-            //Debug.Log(playerParty[targetList[i]].CurHP);
             yield return new WaitForSeconds(1f);
         }
 
         dialogue.text = "post: " + toUse.Name;
-        playerInventory.Remove(toUse);
+        if (toUse.Type != "Armor" || toUse.Type != "Weapon")
+            playerInventory.Remove(toUse);
         toUse = null;
         yield return new WaitForSeconds(1f);
 
@@ -462,7 +475,7 @@ public class BattleController : MonoBehaviour
             int target = Random.Range(0, 3);
             while (playerParty[target].curHP <= 0) target = (target + 1) % 3;
 
-            playerParty[target].takeDmg(allCharas[turnIterator].atk - playerParty[target].def);
+            playerParty[target].takeDmg(allCharas[turnIterator].atk - playerParty[target].CurDef);
             if (playerParty[target].curHP <= 0) playerBodies[target].SetActive(false);
             updateHP();
 
@@ -481,9 +494,11 @@ public class BattleController : MonoBehaviour
             yield return new WaitForSeconds(1f);
             int avglvl = (playerParty[0].level + playerParty[1].level + playerParty[2].level) / 3;
             int gotXP = 0;
+            int gotCredits = 0;
             for (int i =0;i<enemyParty.Count;i++)
             {
                 gotXP += (int)(Mathf.Pow(2, enemyParty[i].level - avglvl) * 50);
+                gotCredits += enemyParty[i].level * 20;
             }
             dialogue.text = "Your characters got " + gotXP + " XP!";
             yield return new WaitForSeconds(2f);
@@ -495,7 +510,11 @@ public class BattleController : MonoBehaviour
                     yield return new WaitForSeconds(2f);
                 }
             }
-            GameObject.Find("ObjectCarrier").GetComponent<InfoCarrier>().setLastEncounterVictory(true);
+            dialogue.text = "Your characters got " + gotCredits + " credits!";
+            yield return new WaitForSeconds(2f);
+            InfoCarrier carrier = GameObject.Find("ObjectCarrier").GetComponent<InfoCarrier>();
+            carrier.setLastEncounterVictory(true);
+            carrier.setPartyCredits(carrier.getPartyCredits() + gotCredits);
             SceneManager.LoadScene("SugarMine_Scene");
         }
         else if(state == BattleState.LOST)
@@ -602,6 +621,7 @@ public class BattleController : MonoBehaviour
             {
                 InventoryInfo.ItemInfo toDisplay = playerInventory[skillPage * 3 + i];
                 aSkill[i].gameObject.SetActive(true);
+                aSkill[i].interactable = true;
                 aSkill[i].GetComponentInChildren<Text>().text = toDisplay.Name;
             }
             else aSkill[i].gameObject.SetActive(false);

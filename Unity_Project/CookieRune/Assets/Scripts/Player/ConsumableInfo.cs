@@ -5,7 +5,7 @@ using UnityEngine;
 namespace InventoryInfo
 {
     public class ConsumableInfo : ItemInfo
-    {
+    { 
         int statChange;
 
         public ConsumableInfo() : base()
@@ -35,7 +35,7 @@ namespace InventoryInfo
             }
         }
 
-        public ConsumableInfo copy()
+        public override ItemInfo copy()
         {
             return new ConsumableInfo(this);
         }

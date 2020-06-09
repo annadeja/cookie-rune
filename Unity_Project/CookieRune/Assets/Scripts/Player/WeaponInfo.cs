@@ -8,10 +8,10 @@ namespace InventoryInfo
     {
         private int physicalDamage;
         public int PhysicalDamage
-        { get; set; }
+        { get => physicalDamage; set => physicalDamage = value; }
         private int magicalDamage;
         public int MagicalDamage
-        { get; set; }
+        { get => magicalDamage; set => magicalDamage = value; }
 
         public WeaponInfo() : base()
         { }
@@ -30,7 +30,9 @@ namespace InventoryInfo
 
         public override void takeEffect(Character target)
         {
-
+            target.curAtk = target.atk + physicalDamage;
+            target.curMag = target.mag + magicalDamage;
+            target.weapon = this;
         }
 
         public override ArrayList getStats()
@@ -44,7 +46,7 @@ namespace InventoryInfo
             return stats;
         }
 
-        public WeaponInfo copy()
+        public override ItemInfo copy()
         {
             return new WeaponInfo(this);
         }

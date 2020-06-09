@@ -54,7 +54,7 @@ namespace InventoryInfo{
             return stats;
         }
 
-        public ItemInfo copy()
+        public virtual ItemInfo copy()
         {
             return new ItemInfo(this);
         }
