@@ -50,5 +50,15 @@ namespace InventoryInfo
         {
             return new WeaponInfo(this);
         }
+
+        public override string getDescription()
+        {
+            return description + " Grants " + physicalDamage + " atk and " + magicalDamage + " mag.";
+        }
+
+        public override string getShortDesc()
+        {
+            return "Grants " + physicalDamage + " atk and " + magicalDamage + " mag.";
+        }
     }
 }

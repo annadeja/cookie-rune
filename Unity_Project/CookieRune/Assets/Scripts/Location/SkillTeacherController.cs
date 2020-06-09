@@ -61,10 +61,13 @@ public class SkillTeacherController : MonoBehaviour
         charaPickPan.SetActive(false);
         trainingPan.SetActive(false);
 
-        skillsToLearn.Add(new Skill("Fireball", false, true, false, true, 5, 1, 1.25f));
+        skillsToLearn.Add(new Skill("Bake I", false, true, false, true, 5, 1, 1.25f));
+        skillsToLearn.Add(new Skill("Bake II: Electric Boogaloo", false, true, false, true, 15, 1, 1.4f));
+        skillsToLearn.Add(new Skill("Bake III", false, true, false, true, 30, 1, 1.6f));
+        skillsToLearn.Add(new Skill("Sherbet I", false, true, false, true, 10, 1, 1.3f));
         skillsToLearn.Add(new Skill("Greater Heal", true, true, false, true, 40, 1, 2f));
         skillsToLearn.Add(new Skill("Barrage", false, false, false, false, 20, 5, 0.7f));
-        skillsToLearn.Add(new Skill("Test Skill 1", false, false, false, false, 1999, 12, 0.2f));
+        skillsToLearn.Add(new Skill("One Punch", false, false, false, false, 100, 1, 3f));
     }
 
     // Update is called once per frame

@@ -39,5 +39,35 @@ namespace InventoryInfo
         {
             return new ConsumableInfo(this);
         }
+
+        public override string getDescription()
+        {
+            switch (type)
+            {
+                case "Healing":
+                    return description + " Heals " + statChange + " HP.";
+                case "Restoring":
+                    return description + " Restores " + statChange + " MP.";
+                case "Offensive":
+                    return description + " Deals " + statChange + " damage.";
+                default:
+                    return base.getDescription();
+            }
+        }
+
+        public override string getShortDesc()
+        {
+            switch (type)
+            {
+                case "Healing":
+                    return "Heals " + statChange + " HP.";
+                case "Restoring":
+                    return "Restores " + statChange + " MP.";
+                case "Offensive":
+                    return "Deals " + statChange + " damage.";
+                default:
+                    return base.getShortDesc();
+            }
+        }
     }
 }

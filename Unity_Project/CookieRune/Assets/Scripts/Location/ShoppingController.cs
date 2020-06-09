@@ -41,10 +41,12 @@ public class ShoppingController : MonoBehaviour
         carrier = GameObject.Find("ObjectCarrier").GetComponent<InfoCarrier>();
         playersItems = carrier.getInventory();
 
-        itemsForSale.Add(new InventoryInfo.ConsumableInfo("japko", "meme", "You know. ;^)", "", 0, 0));
-        itemsForSale.Add(new InventoryInfo.ArmorInfo("Niedzwiedz", 420, 420, "Armor", "No.", "", 0));
-        itemsForSale.Add(new InventoryInfo.WeaponInfo("Tryptyk", 666, 666, "Weapon", "No.", "", 0));
-        itemsForSale.Add(new InventoryInfo.WeaponInfo("Bardzo ostra wykalaczka", 666, 666, "Weapon", "No.", "", 0));
+        itemsForSale.Add(new InventoryInfo.ConsumableInfo("Apple", "Healing", "Fresh and tasty.", "", 5, 5));
+        itemsForSale.Add(new InventoryInfo.ConsumableInfo("Small Health Potion", "Healing", "It's a potion.", "", 30, 20));
+        itemsForSale.Add(new InventoryInfo.ConsumableInfo("Smal Mana Potion", "Restoring", "It's a potion.", "", 30, 30));
+        itemsForSale.Add(new InventoryInfo.ArmorInfo("Cheap Outfit", 1, 1, "Armor", "Not very strudy.", "", 10));
+        itemsForSale.Add(new InventoryInfo.WeaponInfo("Sword", 2, 0, "Weapon", "Just a normal sword.", "", 20));
+        itemsForSale.Add(new InventoryInfo.WeaponInfo("Ice Cream Stake", 5, 0, "Weapon", "A stake left after eating ice cream.", "", 40));
     }
 
     // Update is called once per frame

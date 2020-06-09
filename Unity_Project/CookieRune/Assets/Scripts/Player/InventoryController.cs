@@ -23,10 +23,11 @@ public class InventoryController : MonoBehaviour
     [Header("Aim Buttons")]
     public Button[] aimBtn = new Button[3];
 
-    [Header("Item Buttons")]
+    [Header("Item UI")]
     public Button[] itemBtn = new Button[3];
     public Button nextPageBtn;
     public Button prevPageBtn;
+    public Text itemDesc;
 
     [Header("Game Control UI")]
     public Button exit;
@@ -46,7 +47,7 @@ public class InventoryController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void toggleInventory()
@@ -183,5 +184,15 @@ public class InventoryController : MonoBehaviour
         Destroy(carrier.gameObject);
         carrier = null;
         SceneManager.LoadScene("MainMenu_Scene");
+    }
+
+    public void OnMouseOnItem(int i)
+    {
+        itemDesc.text = carrier.getInventory()[page * 3 + i].getDescription();
+    }
+
+    public void OnMouseOut()
+    {
+        itemDesc.text = "...";
     }
 }

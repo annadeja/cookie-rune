@@ -147,6 +147,8 @@ public class Character : System.IComparable
             lp += 10;
             nxtXP = calcNextXP();
             ret = true;
+            curHP = maxHP;
+            curMP = maxMP;
         }
         if (curXP >= nxtXP) checkLevelUp();
         return ret;

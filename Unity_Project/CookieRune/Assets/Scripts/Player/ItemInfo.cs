@@ -58,5 +58,15 @@ namespace InventoryInfo{
         {
             return new ItemInfo(this);
         }
+
+        public virtual string getDescription()
+        {
+            return "An item.";
+        }
+
+        public virtual string getShortDesc()
+        {
+            return "An item.";
+        }
     }
 }

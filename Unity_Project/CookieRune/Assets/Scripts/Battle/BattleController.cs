@@ -39,6 +39,7 @@ public class BattleController : MonoBehaviour
     public Button nextPageSkills;
     public Button prevPageSkills;
     public Button back;
+    public Text desc;
 
     [Header("Enemy UI")]
     public Text[] enemyName;
@@ -437,6 +438,7 @@ public class BattleController : MonoBehaviour
             onSkillBtn(skillPage * 3 + i);
         }
         back.gameObject.SetActive(false);
+        OnMouseOut();
     }
 
     public void OnFleeButton()
@@ -682,5 +684,22 @@ public class BattleController : MonoBehaviour
     private void debugFunc()
     {
         for (int i = 0; i < allCharas.Capacity; i++) Debug.Log(allCharas[i].unitName + ": " +  allCharas[i].curHP + "/" + allCharas[i].maxHP);
+    }
+
+    public void OnMouseOnSkill(int i)
+    {
+        if (isItems)
+        {
+            desc.text = playerInventory[skillPage * 3 + i].getShortDesc();
+        }
+        else
+        {
+            desc.text = allCharas[turnIterator].getSkill(skillPage * 3 + i + 1).getShortDesc();
+        }
+    }
+
+    public void OnMouseOut()
+    {
+        desc.text = "";
     }
 }

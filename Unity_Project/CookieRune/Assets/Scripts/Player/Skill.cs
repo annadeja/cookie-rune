@@ -60,4 +60,9 @@ public class Skill
                (this.isMagic == toCmp.IsMagic) && (this.mpCost == toCmp.MpCost) && (this.nOTargets == toCmp.NOTargets) &&
                (this.modifier == toCmp.Modifier);
     }
+
+    public string getShortDesc()
+    {
+        return "Costs: " + mpCost + " MP.";
+    }
 }

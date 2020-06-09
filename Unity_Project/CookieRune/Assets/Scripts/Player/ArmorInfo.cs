@@ -50,5 +50,15 @@ namespace InventoryInfo
         {
             return new ArmorInfo(this);
         }
+
+        public override string getDescription()
+        {
+            return description + " Grants " + physicalDefense + " def and " + magicalDefense + "mdef.";
+        }
+
+        public override string getShortDesc()
+        {
+            return "Grants " + physicalDefense + " def and " + magicalDefense + "mdef.";
+        }
     }
 }
