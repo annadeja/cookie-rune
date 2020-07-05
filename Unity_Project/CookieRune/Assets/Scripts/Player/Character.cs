@@ -59,7 +59,7 @@ public class Character : System.IComparable
         def = 1;
         spd = 5;
         skills = new List<Skill>();
-        skills.Add(new Skill("Attack", false, false, false, false, 0, 1, 1f));
+        skills.Add(new Skill("Attack", false, false, false, 0, 1, 1f, "hitPhysFX"));
     }
 
     public Character(string nam, int lvl, int mHP, int mMP, int atk, int def, int mag, int mdef, int spd)
@@ -83,7 +83,7 @@ public class Character : System.IComparable
         nxtXP = 100;
         lp = 10;
         skills = new List<Skill>();
-        skills.Add(new Skill("Attack", false, false, false, false, 0, 1, 1f));
+        skills.Add(new Skill("Attack", false, false, false, 0, 1, 1f, "hitPhysFX"));
         body = Resources.Load("CharacterBodies\\" + unitName + "Body") as GameObject;
     }
 
@@ -108,7 +108,7 @@ public class Character : System.IComparable
         nxtXP = 100;
         lp = 10;
         skills = new List<Skill>();
-        skills.Add(new Skill("Attack", false, false, false, false, 0, 1, 1f));
+        skills.Add(new Skill("Attack", false, false, false, 0, 1, 1f, "hitPhysFX"));
     }
 
     public void takeDmg(int dmg)

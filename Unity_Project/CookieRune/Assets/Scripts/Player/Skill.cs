@@ -10,8 +10,6 @@ public class Skill
     public bool IsPositive { get => isPositive; }
     bool isRanged;
     public bool IsRanged { get => isRanged; }
-    bool isSpecialCast;
-    public bool IsSpecialCast { get => isSpecialCast; }
     bool isMagic;
     public bool IsMagic { get => isMagic; }
     int mpCost;
@@ -20,17 +18,18 @@ public class Skill
     public int NOTargets { get => nOTargets; }
     float modifier;
     public float Modifier { get => modifier; }
+    GameObject hitFX;
 
-    public Skill(string nam, bool pos, bool range, bool special, bool magic, int cost, int targets, float mod)
+    public Skill(string nam, bool pos, bool range, bool magic, int cost, int targets, float mod, string fxName)
     {
         this.name = nam;
         this.isPositive = pos;
         this.isRanged = range;
-        this.isSpecialCast = special;
         this.isMagic = magic;
         this.mpCost = cost;
         this.nOTargets = targets;
         this.modifier = mod;
+        hitFX = Resources.Load("hitFX\\" + fxName) as GameObject;
     }
 
     public void useWithStatOn(int stat, Character target)
@@ -51,7 +50,7 @@ public class Skill
 
     public Skill Copy()
     {
-        return new Skill(this.name, this.isPositive, this.isRanged, this.isSpecialCast, this.isMagic, this.mpCost, this.nOTargets, this.modifier);
+        return new Skill(this.name, this.isPositive, this.isRanged, this.isMagic, this.mpCost, this.nOTargets, this.modifier, hitFX.gameObject.name);
     }
 
     public bool Compare(Skill toCmp)
@@ -59,6 +58,11 @@ public class Skill
         return (this.name == toCmp.Name) && (this.IsPositive == toCmp.IsPositive) && (this.isRanged == toCmp.IsRanged) &&
                (this.isMagic == toCmp.IsMagic) && (this.mpCost == toCmp.MpCost) && (this.nOTargets == toCmp.NOTargets) &&
                (this.modifier == toCmp.Modifier);
+    }
+
+    public GameObject getHitFX()
+    {
+        return hitFX;
     }
 
     public string getShortDesc()

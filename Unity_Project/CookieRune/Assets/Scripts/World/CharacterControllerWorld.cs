@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class CharacterControllerWorld : MonoBehaviour
 {
     [SerializeField] LocationInfo inLocation = null;
     [SerializeField] PathFollower moveControl;
+    public Text locationText;
     private Animator animator;
 
     public InventoryController inv;
@@ -92,6 +94,8 @@ public class CharacterControllerWorld : MonoBehaviour
             {
                 carrier.setLastLocation(other.gameObject.name);
             }
+            locationText.gameObject.SetActive(true);
+            locationText.text = "Currently in location: " + inLocation.getLocationName() + "\n(press \'E\' to enter)";
         }
     }
 
@@ -100,6 +104,7 @@ public class CharacterControllerWorld : MonoBehaviour
         if (other.gameObject.tag == "Location")
         {
             inLocation = null;
+            locationText.gameObject.SetActive(false);
         }
     }
 }

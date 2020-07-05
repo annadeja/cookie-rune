@@ -196,7 +196,7 @@ public class BattleController : MonoBehaviour
 
     IEnumerator playerUseSkill()
     {
-        dialogue.text = "init skill: " + toExec.Name;
+        dialogue.text = allCharas[turnIterator].unitName + " uses " + toExec.Name;
         allCharas[turnIterator].curMP -= toExec.MpCost;
         updateMP();
         int playerCharaIdx = Mathf.Abs(playerParty.BinarySearch(allCharas[turnIterator]));
@@ -205,7 +205,6 @@ public class BattleController : MonoBehaviour
         for (int i = 0; i < targetList.Count; i++)
         {
             //init phase
-            dialogue.text = "start skill: " + toExec.Name;
             if (!toExec.IsRanged)
             {
                 curBodyMovement.setPath(playerPaths[playerCharaIdx * 3 + targetList[i]]);
@@ -214,18 +213,24 @@ public class BattleController : MonoBehaviour
                 yield return new WaitWhile(curBodyMovement.IsInMotion);
             }
 
-            //yield return new WaitForSeconds(1f);
-
             //mid phase
-            dialogue.text = "mid skill: " + toExec.Name;
-            //tu start animacji
-            yield return new WaitForSeconds(1f);
+            GameObject fx;
+            Transform fxPos;
+            if (toExec.IsPositive)
+            {
+                fxPos = playerBodies[targetList[i]].transform;
+            }
+            else
+            {
+                fxPos = enemyBodies[targetList[i]].transform;
+            }
+            fx = Instantiate(toExec.getHitFX(), fxPos);
+            fx.GetComponent<ParticleSystem>().Play();
+
+            yield return new WaitUntil(() => fx.GetComponent<ParticleSystem>().isStopped);
 
             //end phase
-            dialogue.text = "end skill: " + toExec.Name;
             int stat = allCharas[turnIterator].CurAtk;
-            Debug.Log(allCharas[turnIterator].CurAtk);
-            Debug.Log(allCharas[turnIterator].CurMag);
             if (toExec.IsMagic) stat = allCharas[turnIterator].CurMag;
             if (toExec.IsPositive) toExec.useWithStatOn(stat, playerParty[targetList[i]]);
             else toExec.useWithStatOn(stat, enemyParty[targetList[i]]);
@@ -242,10 +247,9 @@ public class BattleController : MonoBehaviour
                 yield return new WaitWhile(curBodyMovement.IsInMotion);
                 playerPaths[playerCharaIdx * 3 + targetList[i]].resetPath();
             }
-            //yield return new WaitForSeconds(1f);
+            GameObject.Destroy(fx);
         }
 
-        dialogue.text = "post: " + toExec.Name;
         toExec = null;
         yield return new WaitForSeconds(1f);
 
@@ -258,15 +262,15 @@ public class BattleController : MonoBehaviour
         for (int i = 0; i < targetList.Count; i++)
         {
             //init phase
-            dialogue.text = "init item: " + toUse.Name;
-            yield return new WaitForSeconds(1f);
+            dialogue.text = allCharas[turnIterator] + " uses " + toUse.Name;
+            yield return new WaitForSeconds(.4f);
 
             //mid phase
-            dialogue.text = "mid item: " + toUse.Name;
-            yield return new WaitForSeconds(1f);
+            GameObject fx = Instantiate(Resources.Load("hitFX\\hitHealFX") as GameObject, playerBodies[targetList[i]].transform);
+            fx.GetComponent<ParticleSystem>().Play();
+            yield return new WaitUntil(() => fx.GetComponent<ParticleSystem>().isStopped);
 
             //end phase
-            dialogue.text = "end item: " + toUse.Name;
             if (toUse.Type == "Offensive")
                 toUse.takeEffect(enemyParty[targetList[i]]);
             else if (toUse.Type == "Armor")
@@ -285,10 +289,10 @@ public class BattleController : MonoBehaviour
                 toUse.takeEffect(playerParty[targetList[i]]);
             updateHP();
             updateMP();
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(.5f);
+            GameObject.Destroy(fx);
         }
 
-        dialogue.text = "post: " + toUse.Name;
         if (toUse.Type != "Armor" || toUse.Type != "Weapon")
             playerInventory.Remove(toUse);
         toUse = null;
@@ -470,18 +474,22 @@ public class BattleController : MonoBehaviour
         {
             yield return new WaitForSeconds(1f);
 
-            dialogue.text = "Enemy attacks!";
+            dialogue.text = allCharas[turnIterator].unitName + " attacks!";
 
             yield return new WaitForSeconds(.5f);
 
             int target = Random.Range(0, 3);
             while (playerParty[target].curHP <= 0) target = (target + 1) % 3;
 
+            GameObject fx = Instantiate(Resources.Load("hitFX\\hitPhysFX") as GameObject, playerBodies[target].transform);
+            fx.GetComponent<ParticleSystem>().Play();
             playerParty[target].takeDmg(allCharas[turnIterator].atk - playerParty[target].CurDef);
             if (playerParty[target].curHP <= 0) playerBodies[target].SetActive(false);
             updateHP();
 
-            yield return new WaitForSeconds(.5f);
+            yield return new WaitUntil(() => fx.GetComponent<ParticleSystem>().isStopped);
+            GameObject.Destroy(fx);
+            yield return new WaitForSeconds(.2f);
         }
 
         nextChara();
