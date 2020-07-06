@@ -9,6 +9,7 @@ public class CharacterControllerWorld : MonoBehaviour
     [SerializeField] LocationInfo inLocation = null;
     [SerializeField] PathFollower moveControl;
     public Text locationText;
+    public Image locationPanel;
     private Animator animator;
 
     public InventoryController inv;
@@ -94,7 +95,7 @@ public class CharacterControllerWorld : MonoBehaviour
             {
                 carrier.setLastLocation(other.gameObject.name);
             }
-            locationText.gameObject.SetActive(true);
+            locationPanel.gameObject.SetActive(true);
             locationText.text = "Currently in location: " + inLocation.getLocationName() + "\n(press \'E\' to enter)";
         }
     }
@@ -104,7 +105,7 @@ public class CharacterControllerWorld : MonoBehaviour
         if (other.gameObject.tag == "Location")
         {
             inLocation = null;
-            locationText.gameObject.SetActive(false);
+            locationPanel.gameObject.SetActive(false);
         }
     }
 }
