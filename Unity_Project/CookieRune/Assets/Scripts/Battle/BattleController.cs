@@ -198,7 +198,7 @@ public class BattleController : MonoBehaviour
 
     IEnumerator playerUseSkill()
     {
-        dialogue.text = allCharas[turnIterator].unitName + " uses " + toExec.Name;
+        dialogue.text = allCharas[turnIterator].unitName + " uses " + toExec.Name + ".";
         allCharas[turnIterator].curMP -= toExec.MpCost;
         updateMP();
         int playerCharaIdx = Mathf.Abs(playerParty.BinarySearch(allCharas[turnIterator]));

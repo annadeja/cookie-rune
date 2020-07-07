@@ -25,6 +25,10 @@ public class CharacterControllerWorld : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         if (animator != null) animator.SetBool("movingRight", true);
+        upArrow.gameObject.SetActive(true);
+        rightArrow.gameObject.SetActive(true);
+        downArrow.gameObject.SetActive(false);
+        leftArrow.gameObject.SetActive(true);
     }
 
     // Update is called once per frame

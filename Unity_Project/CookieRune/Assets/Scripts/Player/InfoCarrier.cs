@@ -48,9 +48,9 @@ public class InfoCarrier : MonoBehaviour
     public void createNewParty()
     {
         party = new List<Character>();
-        party.Add(new Character("Butter", 1, 20, 20, 6, 1, 1, 1, 4));
-        party.Add(new Character("Megu", 1, 30, 20, 1, 6, 1, 1, 2));
-        party.Add(new Character("Saffie", 1, 15, 150, 1, 1, 4, 3, 3));
+        party.Add(new Character("P. Butter", 1, 15, 20, 5, 1, 1, 1, 4));
+        party.Add(new Character("Meringue", 1, 30, 20, 3, 3, 3, 1, 2));
+        party.Add(new Character("Saffron", 1, 20, 100, 4, 1, 4, 3, 3));
         party.Capacity = 3;
     }
 
