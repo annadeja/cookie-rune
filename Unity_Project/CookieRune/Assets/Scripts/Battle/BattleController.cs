@@ -11,6 +11,7 @@ public enum BattleState { START, PTURN, ETURN, WON, LOST, INACTION, RUN, AIM }
 public class BattleController : MonoBehaviour
 {  
     public Text dialogue;
+    [SerializeField] AudioSource battleMusic;
 
     [Header("Player UI")]
     public Text playerNametext1;
@@ -92,6 +93,7 @@ public class BattleController : MonoBehaviour
         //GameObject eInScene = Instantiate(enemy, eBattleStation);
 
         InfoCarrier carrier = GameObject.Find("ObjectCarrier").GetComponent<InfoCarrier>();
+        battleMusic.volume = carrier.Volume;
 
         playerInventory = carrier.getInventory();
         playerParty = carrier.getPlayerParty();
@@ -310,7 +312,7 @@ public class BattleController : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        float chance = Random.Range(0f, 100f);
+        float chance = UnityEngine.Random.Range(0f, 100f);
 
         if (chance > 50f)
         {
@@ -478,7 +480,7 @@ public class BattleController : MonoBehaviour
 
             yield return new WaitForSeconds(.5f);
 
-            int target = Random.Range(0, 3);
+            int target = UnityEngine.Random.Range(0, 3);
             while (playerParty[target].curHP <= 0) target = (target + 1) % 3;
 
             GameObject fx = Instantiate(Resources.Load("hitFX\\hitPhysFX") as GameObject, playerBodies[target].transform);

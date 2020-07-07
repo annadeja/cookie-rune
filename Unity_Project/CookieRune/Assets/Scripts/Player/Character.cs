@@ -182,12 +182,11 @@ public class Character : System.IComparable
 
     public bool hasSkill(Skill template)
     {
-        bool ret = false;
         foreach (Skill skill in skills)
         {
-            ret = skill.Compare(template);
+            if (skill.Compare(template)) return true;
         }
-        return ret;
+        return false;
     }
 
     public bool addXP(int value)

@@ -8,9 +8,11 @@ public class MainMenuController : MonoBehaviour
 {
     [SerializeField] string sceneName;
     InfoCarrier carrier;
+    [SerializeField] AudioSource menuMusic;
 
     public GameObject mainCanv;
     public GameObject optionCanv;
+    public GameObject creditsCanv;
 
     public Toggle fScreen;
 
@@ -18,6 +20,7 @@ public class MainMenuController : MonoBehaviour
 
     bool fscr = true;
     bool inOptions = false;
+    bool inCredits = false;
 
     // Start is called before the first frame update
     void Start()
@@ -77,6 +80,11 @@ public class MainMenuController : MonoBehaviour
         OnChangeRes();
     }
 
+    public void OnChangeVolume(System.Single volume)
+    {
+        menuMusic.volume = volume;
+    }
+
     public void OnToggleOptions()
     {
         inOptions = !inOptions;
@@ -91,4 +99,20 @@ public class MainMenuController : MonoBehaviour
             mainCanv.SetActive(true);
         }
     }
+
+    public void OnToggleCredits()
+    {
+        inCredits = !inCredits;
+        if (inCredits)
+        {
+            creditsCanv.SetActive(true);
+            mainCanv.SetActive(false);
+        }
+        else
+        {
+            creditsCanv.SetActive(false);
+            mainCanv.SetActive(true);
+        }
+    }
+
 }

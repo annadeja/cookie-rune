@@ -110,7 +110,7 @@ public class SkillTeacherController : MonoBehaviour
             else
             {
                 aSkill[i].gameObject.SetActive(true);
-                if (curChara.hasSkill(skillsToLearn[page * 3 + i]) || ((nLp <= 0) && !(isSkillLearned(skillsToLearn[page * 3 + i])))) aSkill[i].interactable = false;
+                if (curChara.hasSkill(skillsToLearn[page * 3 + i]) || (nLp <= 0) && !(isSkillLearned(skillsToLearn[page * 3 + i]))) aSkill[i].interactable = false;
                 else aSkill[i].interactable = true;
                 if (isSkillLearned(skillsToLearn[page * 3 + i])) aSkill[i].GetComponent<Image>().color = highlightColor;
                 else aSkill[i].GetComponent<Image>().color = btnColor;

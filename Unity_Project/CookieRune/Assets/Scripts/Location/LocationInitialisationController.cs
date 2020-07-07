@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class LocationInitialisationController : MonoBehaviour
 {
+    [SerializeField] AudioSource locationMusic;
+
     // Start is called before the first frame update
     void Start()
     {
+        InfoCarrier carrier = GameObject.Find("ObjectCarrier").GetComponent<InfoCarrier>();
+        locationMusic.volume = carrier.Volume;
         List<System.Tuple<string, bool>> encounters = GameObject.Find("ObjectCarrier").GetComponent<InfoCarrier>().getPastEncounters();
         if (encounters != null && encounters.Count > 0)
         {

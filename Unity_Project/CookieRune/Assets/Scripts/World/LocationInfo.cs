@@ -31,6 +31,12 @@ public class LocationInfo : MonoBehaviour
         return north;
     }
 
+    public bool hasNorth()
+    {
+        if (north != null) return true;
+        return false;
+    }
+
     public MovementPath getEast()
     {
         if (east != null)
@@ -39,6 +45,12 @@ public class LocationInfo : MonoBehaviour
             else { east.resetPathNeg(); }
         }
         return east;
+    }
+
+    public bool hasEast()
+    {
+        if (east != null) return true;
+        return false;
     }
 
     public MovementPath getSouth()
@@ -51,6 +63,12 @@ public class LocationInfo : MonoBehaviour
         return south;
     }
 
+    public bool hasSouth()
+    {
+        if (south != null) return true;
+        return false;
+    }
+
     public MovementPath getWest()
     {
         if (west != null)
@@ -59,6 +77,12 @@ public class LocationInfo : MonoBehaviour
             else { west.resetPathNeg(); }
         }
         return west;
+    }
+
+    public bool hasWest()
+    {
+        if (west != null) return true;
+        return false;
     }
 
     public string getLocationName()

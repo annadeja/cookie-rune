@@ -14,6 +14,9 @@ public class InfoCarrier : MonoBehaviour
     List<Character> enemyParty;
     List<System.Tuple<string, bool>> pastEncounters = new List<System.Tuple<string, bool>>();
 
+    float volume = 1.0f;
+    public float Volume { get => volume; }
+
     void Start()
     {
         DontDestroyOnLoad(transform.gameObject);
@@ -110,6 +113,14 @@ public class InfoCarrier : MonoBehaviour
     public void clearEncounters()
     {
         pastEncounters = new List<System.Tuple<string, bool>>();
+    }
+
+    public void setVolume(System.Single value)
+    {
+        if (value > 1.0f) volume = 1.0f;
+        else if (value < 0.0f) volume = 0.0f;
+        else volume = value;
+
     }
 
     private void debugParty()

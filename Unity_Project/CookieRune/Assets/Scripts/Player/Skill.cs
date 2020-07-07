@@ -55,7 +55,7 @@ public class Skill
 
     public bool Compare(Skill toCmp)
     {
-        return (this.name == toCmp.Name) && (this.IsPositive == toCmp.IsPositive) && (this.isRanged == toCmp.IsRanged) &&
+        return (this.name.Equals(toCmp.Name)) && (this.IsPositive == toCmp.IsPositive) && (this.isRanged == toCmp.IsRanged) &&
                (this.isMagic == toCmp.IsMagic) && (this.mpCost == toCmp.MpCost) && (this.nOTargets == toCmp.NOTargets) &&
                (this.modifier == toCmp.Modifier);
     }

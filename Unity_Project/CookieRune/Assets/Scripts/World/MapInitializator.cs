@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class MapInitializator : MonoBehaviour
 {
     [SerializeField] GameObject hero;
+    [SerializeField] AudioSource mapMusic;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +16,7 @@ public class MapInitializator : MonoBehaviour
             Transform whereStart = GameObject.Find(carrier.getLastLocation()).transform;
             hero.transform.position = whereStart.position;
         }
+        mapMusic.volume = carrier.Volume;
     }
 
     // Update is called once per frame

@@ -14,6 +14,12 @@ public class CharacterControllerWorld : MonoBehaviour
 
     public InventoryController inv;
     bool isInInventory = false;
+
+    [SerializeField] Canvas dirArrows;
+    [SerializeField] Image upArrow;
+    [SerializeField] Image rightArrow;
+    [SerializeField] Image downArrow;
+    [SerializeField] Image leftArrow;
     // Start is called before the first frame update
     void Start()
     {
@@ -80,9 +86,24 @@ public class CharacterControllerWorld : MonoBehaviour
                         SceneManager.LoadScene(name);
                     }
                 }
+                if (moveControl.IsInMotion())
+                {
+                    upArrow.gameObject.SetActive(false);
+                    rightArrow.gameObject.SetActive(false);
+                    downArrow.gameObject.SetActive(false);
+                    leftArrow.gameObject.SetActive(false);
+                }
+                else
+                {
+                    if (inLocation.hasNorth()) upArrow.gameObject.SetActive(true);
+                    if (inLocation.hasEast()) rightArrow.gameObject.SetActive(true);
+                    if (inLocation.hasSouth()) downArrow.gameObject.SetActive(true);
+                    if (inLocation.hasWest()) leftArrow.gameObject.SetActive(true);
+                }
             }
         }
         if (Input.GetButtonDown("Inventory")) inv.toggleInventory();
+        dirArrows.transform.position = transform.position;
     }
 
     private void OnTriggerEnter(Collider other)
